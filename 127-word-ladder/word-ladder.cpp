@@ -4,7 +4,6 @@ public:
         unordered_set<string>words(wordList.begin(), wordList.end());
         queue<pair<string, int>>q;
         q.push({beginWord, 1});
-        cout << char('a' + 1);
 
         while (!q.empty()){
             string word = q.front().first;
