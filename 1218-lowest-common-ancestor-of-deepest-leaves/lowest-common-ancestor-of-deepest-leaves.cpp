@@ -11,32 +11,26 @@
  */
 class Solution {
 public:
-    int height(TreeNode* root){
+    int findMaxDepth(TreeNode* root){
         if (!root) return 0;
 
-        int left = height(root -> left);
-        int right = height(root -> right);
-
-        return 1 + max(left, right);
+        return 1 + max(findMaxDepth(root -> left), findMaxDepth(root -> right));
     }
 
-    TreeNode* inorder(TreeNode* root, TreeNode* &ans){
+    TreeNode* getLCA(TreeNode* root, int height, int &maxDepth){
         if (!root) return nullptr;
-        
-        int hleft = height(root -> left);
-        int hright = height(root -> right);
+        if (height + 1 == maxDepth) return root;
 
-        if (hleft == hright ) ans = root;
-        else if (hleft > hright) inorder(root -> left, ans);
-        else if (hleft < hright) inorder(root -> right, ans);
-        
-        return root;
+        TreeNode* left = getLCA(root -> left, height+1, maxDepth);
+        TreeNode* right = getLCA(root -> right, height+1, maxDepth);
+
+        if (left && right) return root;
+        return left ? left : right;
     }
 
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        if (!root) return nullptr;
-        TreeNode* ans = nullptr;
-        TreeNode* temp = inorder(root, ans);
-        return ans;
+        int maxDepth = findMaxDepth(root);
+        TreeNode* LCA = getLCA(root, 0, maxDepth);
+        return LCA;
     }
 };
