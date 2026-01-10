@@ -21,10 +21,6 @@ public:
                 mpp[nums[left]]--;
                 left++;
             }
-
-            if (nums[left] == nums[right] && ((right - left) <= k)){
-                return true;
-            }
         }
 
         return false;
