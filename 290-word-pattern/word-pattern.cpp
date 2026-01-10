@@ -7,7 +7,7 @@ public:
         string word = "";
 
         for (int i = 0; i < s.size(); i++){
-            if (s[i] != ' '){
+            if (!isspace(s[i])){
                 word += s[i];
             } else  {
                 wordList.push_back(word);
