@@ -39,9 +39,13 @@ public:
         int ans = INT_MIN;
 
         for (int i = 1; i < time.size(); i++){
-            ans = max(ans, time[i]);
+            if (time[i] == 1e9){
+                return -1;
+            } else{
+                ans = max(ans, time[i]);
+            }
         }
 
-        return (ans == 1e9) ? -1 : ans;
+        return ans;
     }
 };
