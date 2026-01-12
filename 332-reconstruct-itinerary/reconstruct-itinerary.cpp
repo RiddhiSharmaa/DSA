@@ -2,7 +2,6 @@ class Solution {
 public:
     void dfs(string node, vector<string>& itinerary, 
     unordered_map<string, deque<string>>& mpp){
-
         while (!mpp[node].empty()){
             string next = mpp[node].front();
             mpp[node].pop_front();
@@ -12,6 +11,7 @@ public:
         itinerary.push_back(node);
     }
     vector<string> findItinerary(vector<vector<string>>& tickets) {
+        vector<string> itinerary;
         unordered_map<string, deque<string>>mpp;
         sort(tickets.begin(), tickets.end());
 
@@ -19,11 +19,9 @@ public:
             mpp[ticket[0]].push_back(ticket[1]);
         }
 
-        vector<string> itinerary;
-
         dfs("JFK", itinerary, mpp);
-        
         reverse(itinerary.begin(), itinerary.end());
+        
         return itinerary;
     }
 };
