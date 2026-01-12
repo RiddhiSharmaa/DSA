@@ -1,1 +1,1 @@
-<h2>find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance Notes</h2><hr>[ Time taken: 27 m 11 s ]
+<h2>find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance Notes</h2><hr>[ Time taken: 9 m 23 s ]
