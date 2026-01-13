@@ -9,23 +9,11 @@ public:
         vector<vector<int>>diff(n, vector<int>(m, 1e9));
         priority_queue<P, vector<P>, greater<P>>pq;
 
-        vector<int> rows = {-1, 0, 1, 0};
-        vector<int> cols = {0, 1, 0, -1};
+        int rows[] = {-1, 0, 1, 0};
+        int cols[] = {0, 1, 0, -1};
 
-        if (n > 1 && m == 1){
-            diff[0][0] = abs(heights[0][0] - heights[1][0]);
-            pq.push({diff[0][0], {0, 0}});
-        } else if (n == 1 && m > 1){
-            diff[0][0] = abs(heights[0][0] - heights[0][1]);
-            pq.push({diff[0][0], {0, 0}});
-        } else if (n > 1 && m > 1) {
-            diff[0][0] = min(abs(heights[0][0] - heights[0][1]),
-            abs(heights[0][0] - heights[1][0]));
-            pq.push({abs(heights[0][0] - heights[0][1]), {0, 0}});
-            pq.push({abs(heights[0][1] - heights[0][1]), {0, 0}});
-        } else if (n == 1 && m == 1){
-            return 0;
-        }
+        pq.push({0, {0, 0}});
+        diff[0][0] = 0;
 
         while (!pq.empty()){
             int x = pq.top().second.first;
@@ -33,6 +21,7 @@ public:
             int effort = pq.top().first;
             pq.pop();
 
+            if (effort > diff[x][y]) continue;
             if (x == n-1 && y == m-1) return effort;
             if (visited[x][y]) continue;
             visited[x][y] = 1;
