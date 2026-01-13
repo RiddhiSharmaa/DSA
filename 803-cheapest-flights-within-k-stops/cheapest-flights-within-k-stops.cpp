@@ -16,7 +16,6 @@ public:
 
         pq.push({0, 0, src}); // stops, price, node
         prices[src] = 0;
-        int ans = INT_MAX;
 
         while (!pq.empty()){
             int price = get<1>(pq.top());
@@ -24,13 +23,11 @@ public:
             int node = get<2>(pq.top());
             pq.pop();
 
-            if (stops > k+1) continue;
-            if (node == dst && stops <= k+1) ans = min(ans, price);
-
             for (auto& neigh : adj[node]){
                 int adjNode = neigh.first;
                 int adjWt = neigh.second;
-                if (price + adjWt < prices[adjNode]){
+                int nextStop = stops + 1;
+                if (nextStop <= k+1 && price + adjWt < prices[adjNode]){
                     prices[adjNode] = price + adjWt;
                     pq.push({stops+1, prices[adjNode], adjNode});
                 }
@@ -38,6 +35,6 @@ public:
             }
         }
 
-        return (ans == INT_MAX) ? -1 : ans;
+        return (prices[dst] == 1e9) ? -1 : prices[dst];
     }
 };
