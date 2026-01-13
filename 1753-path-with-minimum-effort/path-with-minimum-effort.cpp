@@ -12,9 +12,6 @@ public:
         vector<int> rows = {-1, 0, 1, 0};
         vector<int> cols = {0, 1, 0, -1};
 
-        pq.push({heights[0][0], {0, 0}});
-        diff[0][0] = heights[0][0];
-
         if (n > 1 && m == 1){
             diff[0][0] = abs(heights[0][0] - heights[1][0]);
             pq.push({diff[0][0], {0, 0}});
