@@ -10,7 +10,7 @@ public:
             for (int j = 0; j < s.size(); j++){
                 int num = (s[j] - s[0] + 26) % 26;
                 char c = num + 'a';
-                key += c + '#';
+                key += c ;
             }
 
             mpp[key]++;
