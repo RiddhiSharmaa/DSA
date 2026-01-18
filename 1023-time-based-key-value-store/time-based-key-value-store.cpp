@@ -18,14 +18,11 @@ public:
             int low = 0, high = vec.size()-1;
             while (low <= high){
                 int mid = low + (high - low)/2;
-                if (vec[mid].second < timestamp){
+                if (vec[mid].second <= timestamp){
                     ans = vec[mid].first;
                     low = mid + 1;
                 } else if (vec[mid].second > timestamp){
                     high = mid - 1;
-                } else {
-                    ans = vec[mid].first;
-                    return ans;
                 }
             }
         }
