@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int helper(int low, int high, vector<int>nums, int target){
+    int helper(int low, int high, vector<int>& nums, int target){
         while(low <= high){
             int mid = low + (high - low)/2;
 
