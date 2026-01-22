@@ -3,7 +3,7 @@ public:
     bool isPalindrome(int i, int j, string& s){
         int left = i, right = j;
 
-        while (left < right){
+        while (left <= right){
             if (s[left] != s[right]){
                 return false;
             }
