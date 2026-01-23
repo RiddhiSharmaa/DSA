@@ -1,14 +1,17 @@
 class Solution {
 public:
-    bool checkPalindrome(int i, int j, string &s){
+    bool checkPalindrome(int i, int j, string &s, vector<vector<int>>& dp){
         if (i > j) {
             return true;
         }
-        // if (dp[i][j] != -1) return 
+
+        if (dp[i][j] != -1) return dp[i][j];
+
         if (s[i] == s[j]){
-            return checkPalindrome(i+1, j-1, s);
+            return dp[i][j] = checkPalindrome(i+1, j-1, s, dp);
         }
-        return false;
+
+        return dp[i][j] = false;
     }
     int countSubstrings(string s) {
         int n = s.size();
@@ -17,7 +20,7 @@ public:
 
         for (int i = 0; i < n; i++){
             for (int j = i; j < n; j++){
-                if (checkPalindrome(i, j, s)) cnt++;
+                if (checkPalindrome(i, j, s, dp)) cnt++;
             }
         }
 
