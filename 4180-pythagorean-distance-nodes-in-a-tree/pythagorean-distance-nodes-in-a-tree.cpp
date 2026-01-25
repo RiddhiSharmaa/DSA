@@ -1,17 +1,6 @@
 class Solution {
 public:
     using ll = long long;
-    bool pythagoras(vector<int>& s){
-        ll a = pow(s[0], 2);
-        ll b = pow(s[1], 2);
-        ll c = pow(s[2], 2);
-        // cout << a << " " << b<<  " " <<c<< " ";
-        // cout << endl;
-
-        if (a + b == c) return true;
-        return false;
-    }
-
     void bfs(int src, vector<vector<int>>& adj, vector<int>& dist){
         dist[src] = 0;
         
@@ -50,16 +39,16 @@ public:
         
         int cnt = 0;
         for (int i = 0; i < n; i++){
-            ll dx = distX[i];
-            ll dy = distY[i];
-            ll dz = distZ[i];
+            int dx = distX[i];
+            int dy = distY[i];
+            int dz = distZ[i];
             
             if (dx >= 1e9 || dy >= 1e9 || dz >= 1e9) continue;
-            vector<ll> s = {dx, dy, dz};
+            vector<int> s = {dx, dy, dz};
             
             sort(s.begin(), s.end());
             
-            if ((s[0]*s[0]) + (s[1]*s[1]) == (s[2]*s[2])) cnt++;
+            if ((1LL * s[0] * s[0]) + (1LL * s[1] * s[1]) == (1LL * s[2] * s[2])) cnt++;
         }
 
         return cnt;
