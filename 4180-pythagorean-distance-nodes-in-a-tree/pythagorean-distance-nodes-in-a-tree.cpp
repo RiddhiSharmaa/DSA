@@ -15,19 +15,19 @@ public:
     void bfs(int src, vector<vector<int>>& adj, vector<int>& dist){
         dist[src] = 0;
         
-        queue<pair<int, int>>q;
-        q.push({src, 0});
+        queue<int>q;
+        q.push(src);
 
         while (!q.empty()){
-            int node = q.front().first;
-            int dis = q.front().second;
+            int node = q.front();
+            int dis = dist[node];
             q.pop();
 
             for (auto& neigh : adj[node]){
                 int adjNode = neigh;
                 if (dist[adjNode] > dis + 1){
                     dist[adjNode] = dis+1;
-                    q.push({adjNode, dis+1});
+                    q.push(adjNode);
                 }
             }
         }
