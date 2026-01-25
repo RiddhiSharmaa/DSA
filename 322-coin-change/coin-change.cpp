@@ -22,11 +22,6 @@ public:
         }
 
         int ans = dp[0][amount];
-        // for (int i = 0; i < n; i++){
-        //     if (dp[i][amount] != -1){
-        //         ans = min(ans, dp[i][amount]);
-        //     }
-        // }
 
         return ans >= 1e9 ? -1 : ans;
     }
