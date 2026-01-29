@@ -1,30 +1,43 @@
 class Solution {
 public:
-    int helper(int low, int high, vector<int>& nums, int target){
-        while(low <= high){
-            int mid = low + (high - low)/2;
-
-            if (nums[mid] == target) return mid;
-            if (nums[low] <= nums[mid]){
-                if (nums[low] <= target && target <= nums[mid]){
-                    high = mid - 1;
-                } else {
-                    low = mid + 1;
-                }
-            } else if (nums[mid] <= nums[high]){
-                if (nums[mid] <= target && target <= nums[high]){
-                    low = mid + 1;
-                } else {
-                    high = mid - 1;
-                }
+    int binary_search(int low, int high, vector<int>& nums, int target){
+        while (low <= high){
+            int mid = low + (high-low)/2;
+            if (nums[mid] == target){
+                return mid;
+            } else if (nums[mid] < target){
+                low = mid+1;
+            } else if (nums[mid] > target){
+                high = mid-1;
             }
         }
 
         return -1;
     }
-
     int search(vector<int>& nums, int target) {
         int n = nums.size();
-        return helper(0, n-1, nums, target); 
+        int low = 0, high = n-1;
+        int ans = -1;
+
+        while (low <= high){
+            int mid = low + (high - low)/2;
+            if (nums[mid] == target){
+                return mid;
+            } else if (nums[low] <= nums[mid]){
+                if (target >= nums[low] && target <= nums[mid]){
+                    return binary_search(low, mid, nums, target);
+                } else {
+                    low = mid+1;
+                }
+            } else {
+                if (target >= nums[mid] && target <=  nums[high]){
+                    return binary_search(mid, high, nums, target);
+                } else {
+                    high = mid-1;
+                }
+            } 
+        }
+
+        return ans;
     }
 };
