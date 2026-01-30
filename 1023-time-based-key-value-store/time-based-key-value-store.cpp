@@ -10,18 +10,12 @@ public:
     }
     
     string get(string key, int timestamp) {
-        if (mpp.find(key) == mpp .end()) return "";
-        int t = INT_MAX;
-        for (auto it = mpp.rbegin(); it != mpp.rend(); ++it){
-            string k = it->first;
-            vector<pair<string, int>>& vec = it->second;
-            if (k == key){
-                for (int i = vec.size()-1; i >= 0; i--){
-                    auto p = vec[i];
-                    if (p.second <= timestamp){
-                        return p.first;
-                    }
-                }
+        vector<pair<string, int>>& vec = mpp[key];
+        
+        for (int i = vec.size()-1; i >= 0; i--){
+            auto p = vec[i];
+            if (p.second <= timestamp){
+                return p.first;
             }
         }
 
