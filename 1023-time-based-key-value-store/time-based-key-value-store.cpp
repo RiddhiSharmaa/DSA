@@ -11,15 +11,21 @@ public:
     
     string get(string key, int timestamp) {
         vector<pair<string, int>>& vec = mpp[key];
-        
-        for (int i = vec.size()-1; i >= 0; i--){
-            auto p = vec[i];
-            if (p.second <= timestamp){
-                return p.first;
+        string ans = "";
+        int low = 0, high = vec.size()-1;
+
+        while (low <= high){
+            int mid = low + (high - low)/2;
+
+            if (vec[mid].second <= timestamp){
+                ans = vec[mid].first;
+                low = mid+1;
+            } else {
+                high = mid-1;
             }
         }
 
-        return "";
+        return ans;
     }
 };
 
