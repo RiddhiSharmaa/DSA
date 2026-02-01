@@ -4,7 +4,7 @@ public:
     int minimumK(vector<int>& nums) {
         sort(nums.begin(), nums.end());
         int ans = -1;
-        ll low = 1, high = 1e9;
+        ll low = 1, high = 1e5;
         
         while (low <= high){
             ll mid = low + (high - low)/2;
