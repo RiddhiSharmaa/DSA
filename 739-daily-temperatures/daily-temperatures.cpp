@@ -20,8 +20,6 @@ public:
         for (auto [i, end] : mpp){
             if (end != -1){
                 ans[i] = end - i;
-            } else {
-                ans[i] = 0;
             }
         }
 
