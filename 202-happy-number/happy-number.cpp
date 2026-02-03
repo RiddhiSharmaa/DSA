@@ -1,24 +1,22 @@
 class Solution {
 public:
-    int getNextNumber(int n){
+    int getSum(int n){
         int sum = 0;
-        while (n != 0){
-            int num = n % 10;
-            sum += (num * num);
+        while (n > 0){
+            int digit = n % 10;
+            sum += (digit * digit);
             n /= 10;
         }
-
+        
         return sum;
     }
     bool isHappy(int n) {
-        unordered_set<int>st;
-
-        while (n != 1 && st.count(n) == 0){
-            st.insert(n);
-            n = getNextNumber(n);
+        while (n != 1){
+            int s = getSum(n);
+            if (s == 4) return false;
+            n = s;
         }
 
-        if (n == 1) return true;
-        return false;
+        return true;
     }
 };
