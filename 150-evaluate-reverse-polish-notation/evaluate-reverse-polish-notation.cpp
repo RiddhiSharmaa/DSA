@@ -1,13 +1,13 @@
 class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
-        stack<string>st;
+        stack<int>st;
 
         for (string& s : tokens){
             if (s == "+" || s == "/" || s == "*" || s == "-"){
-                int b = stoi(st.top());
+                int b = st.top();
                 st.pop();
-                int a = stoi(st.top());
+                int a = st.top();
                 st.pop();
                 int num = 0;
                 if (s == "+"){
@@ -19,12 +19,12 @@ public:
                 } else if (s == "/"){
                     num = a / b;
                 }
-                st.push(to_string(num));
+                st.push(num);
             } else{
-                st.push(s);
+                st.push(stoi(s));
             }
         }
 
-        return stoi(st.top());
+        return st.top();
     }
 };
