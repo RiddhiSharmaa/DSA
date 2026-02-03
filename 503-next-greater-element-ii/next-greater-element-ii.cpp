@@ -10,7 +10,7 @@ public:
                 st.pop();
             }
 
-            if (!st.empty()) ans[i%n] = st.top();
+            if (i < n && !st.empty()) ans[i] = st.top();
 
             st.push(nums[i%n]);
         }
