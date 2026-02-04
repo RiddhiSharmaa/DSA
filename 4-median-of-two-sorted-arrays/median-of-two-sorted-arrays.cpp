@@ -2,23 +2,53 @@ class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int n1 = nums1.size(), n2 = nums2.size();
-        vector<int>vec;
+        int cnt = 0, total = n1+n2, i = 0, j = 0;
+        int ele1 = -1, ele2 = -1;
 
-        for (int n : nums1){
-            vec.push_back(n);
+        while (i < n1 && j < n2){
+            if (nums1[i] <= nums2[j]){
+                if (cnt == (total/2)-1){
+                    ele1 = nums1[i];
+                } else if (cnt == total/2){
+                    ele2 = nums1[i];
+                }
+                i++;
+                cnt++;
+            } else if (nums1[i] > nums2[j]){
+                if (cnt == (total/2)-1){
+                    ele1 = nums2[j];
+                } else if (cnt == total/2){
+                    ele2 = nums2[j];
+                }
+                j++;
+                cnt++;
+            } 
+        }
+        
+        while (i < n1){
+            if (cnt == (total/2)-1){
+                ele1 = nums1[i];
+            } else if (cnt == total/2){
+                ele2 = nums1[i];
+            }
+            i++;
+            cnt++;
         }
 
-        for (int n : nums2){
-            vec.push_back(n);
+        while (j < n2){
+            if (cnt == (total/2)-1){
+                ele1 = nums2[j];
+            } else if (cnt == total/2){
+                ele2 = nums2[j];
+            }
+            j++;
+            cnt++;
         }
-
-        sort(vec.begin(), vec.end());
-        int total = n1+n2;
 
         if (total % 2 == 0){
-            return (double) (vec[total/2] + vec[(total/2)-1])/2.0;
+            return (double) (ele1 + ele2)/2.0;
         } else {
-            return (double) vec[total/2];
+            return (double) ele2;
         }
 
         return -1;
