@@ -6,28 +6,35 @@ public:
         vector<int>ans;
 
         for (int i = 0; i < n; i++){
-            while (!st.empty() && st.top() > 0 && asteroids[i] < 0 && 
-            abs(asteroids[i]) > st.top()){
-                st.pop();
-            }
-            if (!st.empty() && st.top() > 0 && asteroids[i] < 0 && 
-            abs(asteroids[i]) == st.top()){
-                st.pop();
-                continue;
+            while (ans.size() >= 2 && ans.back() < 0 && ans[ans.size()-2] > 0){
+                if (abs(ans.back()) > ans[ans.size()-2]){
+                    ans[ans.size()-2] = ans.back();
+                } else if (abs(ans.back()) == ans[ans.size()-2]){
+                    ans.pop_back();
+                }
+                ans.pop_back();
             }
 
-            if (!st.empty() && st.top() > 0 && asteroids[i] < 0 && 
-            abs(asteroids[i]) < st.top()) continue;
-
-            st.push(asteroids[i]);
+            ans.push_back(asteroids[i]);
         }
 
-        while (!st.empty()){
-            ans.push_back(st.top());
-            st.pop();
+        for (int x : ans){
+            cout << x << " ";
         }
 
-        reverse(ans.begin(), ans.end());
+        while (ans.size() >= 2 && ans.back() <= 0 && ans[ans.size()-2] > 0){
+            if (abs(ans.back()) > ans[ans.size()-2]){
+                ans[ans.size()-2] = ans.back();
+            } else if (abs(ans.back()) == ans[ans.size()-2]){
+                ans.pop_back();
+            }
+            ans.pop_back();
+        }
+        cout << endl;
+        for (int x : ans){
+            cout << x << " ";
+        }
+
 
         return ans;
     }
