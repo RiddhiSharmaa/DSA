@@ -18,10 +18,6 @@ public:
             ans.push_back(asteroids[i]);
         }
 
-        for (int x : ans){
-            cout << x << " ";
-        }
-
         while (ans.size() >= 2 && ans.back() <= 0 && ans[ans.size()-2] > 0){
             if (abs(ans.back()) > ans[ans.size()-2]){
                 ans[ans.size()-2] = ans.back();
@@ -30,11 +26,6 @@ public:
             }
             ans.pop_back();
         }
-        cout << endl;
-        for (int x : ans){
-            cout << x << " ";
-        }
-
 
         return ans;
     }
