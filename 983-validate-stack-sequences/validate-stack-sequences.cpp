@@ -13,15 +13,7 @@ public:
                 j++;
             }
         }
-
-        while (!st.empty() && j < n){
-            if (j < n && st.top() == popped[j]){
-                st.pop();
-                
-            }
-            j++;
-        }
-
+        
         return st.empty();
     }
 };
