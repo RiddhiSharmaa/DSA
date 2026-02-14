@@ -2,20 +2,16 @@ class Solution {
 public:
     int minLengthAfterRemovals(string s) {
         int len = 0;
-        string ans = "";
+        stack<int>st;
 
         for (int i = 0; i < s.size(); i++){
-            ans.push_back(s[i]);
-            if (ans.size() >= 2 && ans.back() == 'b' && ans[ans.size()-2] == 'a'){
-                ans.pop_back();
-                ans.pop_back();
-            } else if (ans.size() >= 2 && ans.back() == 'a' && ans[ans.size()-2] == 'b'){
-                ans.pop_back();
-                ans.pop_back();
+            if (!st.empty() && st.top() != s[i]){
+                st.pop();
+                continue;
             }
-            
+            st.push(s[i]);
         }
 
-        return ans.size();
+        return st.size();
     }
 };
