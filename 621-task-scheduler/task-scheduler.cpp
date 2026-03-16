@@ -11,10 +11,9 @@ public:
 
         for (auto& [ch, freq] : mpp) pq.push({freq, ch - 'A'});
         
-        int cycle = tasks.size();
         int time = 0;
 
-        while (cycle && !pq.empty()){
+        while (!pq.empty()){
             int c = n+1;
             vector<pair<int, int>>remain;
             while (c){
@@ -37,8 +36,6 @@ public:
                     pq.push(p);
                 }
             }
-
-            cycle--;
         }
 
         return time;
