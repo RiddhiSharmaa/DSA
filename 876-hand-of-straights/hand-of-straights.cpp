@@ -12,20 +12,17 @@ public:
 
         int groups = n / groupSize;
 
-        for (auto [num, freq] : mpp){
-            int count = freq;
-            while (count){
-                if (mpp[num] == 0) continue;
-                int k = num;
-                for (int j = 0; j < groupSize; j++){
-                    if (mpp[k] > 0){
-                        mpp[k]--;
-                    } else {
-                        return false;
-                    }
-                    k++;
+        while (!mpp.empty()){
+            auto it = mpp.begin();
+            int k = it -> first;
+            for (int j = 0; j < groupSize; j++){
+                if (mpp[k] > 0){
+                    mpp[k]--;
+                    if (mpp[k] == 0) mpp.erase(k);
+                } else {
+                    return false;
                 }
-                count--;
+                k++;
             }
         }
 
