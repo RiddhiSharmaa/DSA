@@ -15,9 +15,8 @@ public:
         if (!root) return;
         if (root -> val >= max_val) {
             ans++;
-            
+            max_val = max(max_val, root -> val);
         }
-        max_val = max(max_val, root -> val);
         helper(root -> left, max_val, ans);
         helper(root -> right, max_val, ans);
     }
