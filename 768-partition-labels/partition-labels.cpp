@@ -8,17 +8,18 @@ public:
         }
 
         vector<int>ans;
-        int i = 0;
-        while (i < s.size()){
-            int end = mpp[s[i]-'a'];
-            int start = i;
 
-            while (i <= end){
-                end = max(end, mpp[s[i]-'a']);
-                i++;
+        int end = mpp[s[0]-'a'];
+        int start = 0;
+        for (int i = 0; i < s.size(); i++){
+            if (mpp[s[i]-'a'] > end){
+                end = mpp[s[i]-'a'];
             }
 
-            ans.push_back(end-start+1);
+            if (i == end){
+                ans.push_back(end-start+1);
+                start = end+1;
+            }
         }
 
         return ans;
