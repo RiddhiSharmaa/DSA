@@ -17,7 +17,6 @@ public:
             ans++;
             
         }
-        cout << root -> val << endl;
         max_val = max(max_val, root -> val);
         helper(root -> left, max_val, ans);
         helper(root -> right, max_val, ans);
