@@ -12,46 +12,18 @@
 class Solution {
 public:
     using ll = long long;
-    void helper(TreeNode* root, vector<ll>& inorder){
-        if (!root) return;
-        helper(root -> left, inorder);
-        inorder.push_back(root -> val);
-        helper(root -> right, inorder);
+    bool helper(TreeNode* root, ll mini, ll maxi){
+        if (!root) return true;
+
+        if (root -> val <= mini || root -> val >= maxi) return false;
+
+        bool ans1 = helper(root -> left, mini, root -> val);
+        bool ans2 = helper(root -> right, root -> val, maxi);
+
+        return ans1 && ans2;
+
     }
     bool isValidBST(TreeNode* root) {
-        // if (!root) return true;
-        // // if (isValidBST(root -> left)) if (root -> left -> val < root -> val) ;
-        // // else if (root -> left -> val < root -> val) return false;
-        // // if (root -> right -> val > root -> val) isValidBST(root -> right);
-        // // else if (root -> right -> val < root -> val) return false;
-        // bool ans1 = false, ans2 = false;
-        // if (root -> left) {
-        //     if (root -> left -> val < root -> val){
-        //         ans1 = isValidBST(root -> left);
-        //     } 
-        // } else {
-        //     ans1 = true;
-        // }
-        // if (root -> right) {
-        //     if (root -> right -> val > root -> val){
-        //         ans2 = isValidBST(root -> right);
-        //     }
-        // } else {
-        //     ans2 = true;
-        // }
-
-        // return ans1 && ans2;
-
-        vector<ll>inorder;
-        helper(root, inorder);
-
-        vector<ll>sorted = inorder;
-        sort(sorted.begin(), sorted.end());
-
-        for (int i = 0; i < sorted.size()-1; i++){
-            if (sorted[i] == sorted[i+1]) return false;
-        }
-
-        return sorted == inorder;
+        return helper(root, LLONG_MIN, LLONG_MAX);
     }
 };
