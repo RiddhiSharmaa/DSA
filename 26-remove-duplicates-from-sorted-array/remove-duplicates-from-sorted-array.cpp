@@ -1,19 +1,19 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        unordered_map<int, int>mpp;
+        unordered_set<int>st;
 
         for (int i = 0; i < nums.size(); i++){
-            mpp[nums[i]]++;
+            st.insert(nums[i]);
         }
 
         int i = 0;
-        for (auto& [num, freq]: mpp){
-            nums[i] = num;
+        for (auto& it : st){
+            nums[i] = it;
             i++;
         }
 
-        sort(nums.begin(), nums.begin()+mpp.size());
-        return mpp.size();
+        sort(nums.begin(), nums.begin()+st.size());
+        return st.size();
     }
 };
