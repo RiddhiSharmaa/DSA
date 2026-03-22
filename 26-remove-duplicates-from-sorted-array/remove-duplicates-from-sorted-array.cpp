@@ -1,19 +1,18 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        unordered_set<int>st;
+        int i = 0, j = 1;
 
-        for (int i = 0; i < nums.size(); i++){
-            st.insert(nums[i]);
+        while (j < nums.size()){
+            if (nums[i] == nums[j]){
+                j++; // points to unique number only
+            } else {
+                i++; // pointer to swap numbers in vector
+                swap(nums[i], nums[j]);
+                j++;
+            }
         }
 
-        int i = 0;
-        for (auto& it : st){
-            nums[i] = it;
-            i++;
-        }
-
-        sort(nums.begin(), nums.begin()+st.size());
-        return st.size();
+        return i+1;
     }
 };
