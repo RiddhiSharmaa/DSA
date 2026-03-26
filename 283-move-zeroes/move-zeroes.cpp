@@ -1,39 +1,15 @@
 class Solution {
 public:
+    using ll = long long;
     void moveZeroes(vector<int>& nums) {
         int n = nums.size();
-        int left = n-1, right = n-1;
-        vector<int>vec;
-
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != 0){
-                vec.push_back(nums[i]);
-            }
-        }
+        int insertPosition = 0;
 
         for (int i = 0; i < n; i++){
-            if (i < vec.size()){
-                nums[i] = vec[i];
-            } else {
-                nums[i] = 0;
+            if (nums[i] != 0){
+                swap(nums[i], nums[insertPosition]);
+                insertPosition++;
             }
         }
-
-        // bool s = false;
-
-        // for (int i = 0; i < n; i++){
-        //     if (nums[i] == 0) s = true;
-        //     else continue;
-        //     int prev = i;
-
-        //     for (int j = i+1;  j < n; j++){
-        //         if (nums[j] == 0) continue;
-        //         if (s){
-        //             swap(nums[j], nums[prev]);
-        //         }
-        //         prev = j-1;
-        //     }
-        //     s = false;
-        // }
     }
 };
