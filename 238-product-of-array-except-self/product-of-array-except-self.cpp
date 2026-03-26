@@ -2,16 +2,16 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int>vec1(n, 1), vec2(n, 1);
         vector<int>ans(n, 1);
 
         for (int i = 1; i < n; i++){
-            vec1[i] = vec1[i-1] * nums[i-1];
-            vec2[n-i-1] = vec2[n-i] * nums[n-i];
+            ans[i] = ans[i-1] * nums[i-1];
         }
 
-        for (int i = 0; i < n; i++){
-            ans[i] = vec1[i] * vec2[i];
+        int suffix = 1;
+        for (int i = n-1; i >= 0; i--){
+            ans[i] *= suffix;
+            suffix *= nums[i];
         }
 
         return ans;
