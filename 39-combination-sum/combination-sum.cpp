@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>>ans;
-    void helper(int i, vector<int> temp, vector<int>& candidates, int target){
+    void helper(int i, vector<int>& temp, vector<int>& candidates, int target){
         // base case
         if (i >= candidates.size()) return;
         if (target < 0) return;
