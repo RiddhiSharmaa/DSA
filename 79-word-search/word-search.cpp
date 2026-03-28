@@ -3,28 +3,26 @@ public:
     bool helper(int i, int j, int idx, vector<vector<char>>& board, string& word,
     vector<int>& nrow, vector<int>& ncol, vector<vector<int>>& visited){
         if (idx == word.size()-1){
-            if (board[i][j] == word[idx] && visited[i][j] == 0){
+            if (board[i][j] == word[idx]){
                 return true;
             } else {
                 return false;
             }
         }
-        // if (i >= board.size() || j >= board[0].size()) return false;
-        // if (idx >= word.size()) return false;
+        if (visited[i][j] == 1 || idx >= word.size()){
+            return false;
+        }
+        if (board[i][j] != word[idx]) return false;
 
-        // bool ans = false;
         visited[i][j] = 1;
 
-        if (board[i][j] == word[idx]){
-            for (int r = 0; r < nrow.size(); r++){
-                int row = i + nrow[r];
-                int col = j + ncol[r];
-                if (row >= 0 && col >= 0 && row < board.size() && col < board[0].size()
-                && visited[row][col] == 0 && idx+1 < word.size() && 
-                board[row][col] == word[idx+1]){
-                    if (helper(row, col, idx+1, board, word, nrow, ncol, visited)){
-                        return true;
-                    }
+        for (int r = 0; r < nrow.size(); r++){
+            int row = i + nrow[r];
+            int col = j + ncol[r];
+            if (row >= 0 && col >= 0 && row < board.size() && col < board[0].size()
+            && visited[row][col] == 0){
+                if (helper(row, col, idx+1, board, word, nrow, ncol, visited)){
+                    return true;
                 }
             }
         }
