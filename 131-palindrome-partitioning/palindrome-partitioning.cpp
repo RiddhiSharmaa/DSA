@@ -19,7 +19,7 @@ public:
             if (checkPalindrome(str)){
                 temp.push_back(str);
                 helper(l+1, temp, ans, s);
-                temp.pop_back();
+                temp.pop_back(); //backtrack
             }
         }
     }
