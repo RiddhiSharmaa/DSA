@@ -1,36 +1,34 @@
 class Solution {
 public:
-    void helper(int i, vector<int>& temp, vector<int>& nums, vector<int>& visited, 
-    set<vector<int>>& ans){
-        if (i == nums.size()){
-            ans.insert(temp);
+    void helper(vector<int>& temp, vector<int>& nums, vector<int>& visited, 
+    vector<vector<int>>& ans){
+        if (temp.size() == nums.size()){
+            ans.push_back(temp);
             return;
         }
-        if (i > nums.size()) return;
 
-        for (int l = 0; l < nums.size(); l++){
-            if (visited[l]) continue;
+        for (int i = 0; i < nums.size(); i++){
+            if (i > 0 && !visited[i-1] && nums[i] == nums[i-1]) continue;
+            if (visited[i]) continue;
 
-            visited[l] = 1;
-            temp.push_back(nums[l]);
-            helper(i+1, temp, nums, visited, ans);
+            visited[i] = 1;
+            temp.push_back(nums[i]);
+            helper(temp, nums, visited, ans);
 
             temp.pop_back();
-            visited[l] = 0;
+            visited[i] = 0;
         }
 
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         int n = nums.size();
         sort(nums.begin(), nums.end());
-        set<vector<int>>ans;
+        vector<vector<int>>ans;
         vector<int>temp;
         vector<int>visited(n, 0);
         
-        helper(0, temp, nums, visited, ans);
+        helper(temp, nums, visited, ans);
 
-        vector<vector<int>>ans2(ans.begin(), ans.end());
-
-        return ans2;
+        return ans;
     }
 };
