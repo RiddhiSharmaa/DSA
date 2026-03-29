@@ -25,7 +25,6 @@ public:
             result.push_back(ans);
             return;
         }
-        if (i > ans.size()) return;
 
         for (int j = 0; j < ans.size(); j++){
             if (isSafe(i, j, ans)){
