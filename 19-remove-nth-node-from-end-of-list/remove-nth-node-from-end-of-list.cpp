@@ -10,43 +10,47 @@
  */
 class Solution {
 public:
-    int countLen(ListNode* head){
-        ListNode* temp = head;
-        int cnt = 0;
-
-        while (temp != nullptr){
-            temp = temp -> next;
-            cnt++;
-        }
-
-        return cnt;
-    }
-
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode* reverseList(ListNode* head){
         if (!head) return nullptr;
-        int len = countLen(head);
-
-        int cnt = len - n;
-
-        ListNode* temp = head;
+        ListNode* curr = head;
         ListNode* prev = nullptr;
 
+        while (curr != nullptr){
+            ListNode* nextNode = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        return prev;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* temp = reverseList(head);
+        if (n == 1){
+            ListNode* toDelete = temp;
+            temp = temp -> next;
+            toDelete -> next = nullptr;
+            delete(toDelete);
+            ListNode* ans = reverseList(temp);
+            return ans;
+        }
         int i = 0;
-        while (i < cnt){
+        ListNode* dummy = temp;
+        ListNode* prev = temp;
+
+        while (i < n-1){
             prev = temp;
             temp = temp -> next;
             i++;
         }
 
-        if (prev == nullptr){
-            ListNode* h = head -> next;
-            delete head;
-            return h;
-        }
-
         prev -> next = temp -> next;
-        delete temp;
+        temp -> next = nullptr;
 
-        return head;
+        delete(temp);
+        if (!dummy) return nullptr;
+        ListNode* t = reverseList(dummy);
+        
+        return t;
     }
 };
