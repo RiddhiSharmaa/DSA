@@ -7,7 +7,7 @@ public:
         unordered_set<int>st;
 
         for (ll i = 1; i*i*i <= n; i++){
-            for (ll j = i; j*j*j <= n; j++){
+            for (ll j = i; j*j*j<= n; j++){
                 ll a = i*i*i;
                 ll b = j*j*j;
                 ll sum = a + b;
