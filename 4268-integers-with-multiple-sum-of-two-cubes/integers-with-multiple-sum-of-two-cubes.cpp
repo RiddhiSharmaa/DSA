@@ -4,7 +4,6 @@ public:
     vector<int> findGoodIntegers(int n) {
         vector<int>ans;
         unordered_map<int, int>mpp;
-        unordered_set<int>st;
 
         for (ll i = 1; i*i*i <= n; i++){
             for (ll j = i; j*j*j<= n; j++){
@@ -13,13 +12,13 @@ public:
                 ll sum = a + b;
                 if (sum > n) break;
                 mpp[sum]++;
-                if (mpp[sum] >= 2) {
-                    if (st.find(sum) != st.end()) continue;
-                    st.insert(sum);
-                    ans.push_back(sum);
-                }
             }
         }
+
+        for (auto [num, freq] : mpp){
+            if (freq >= 2) ans.push_back(num);
+        }
+
         sort(ans.begin(), ans.end());
         return ans;
     }
