@@ -3,7 +3,7 @@ public:
     using ll = long long;
     vector<int> findGoodIntegers(int n) {
         vector<int>ans;
-        unordered_map<long long, int>mpp;
+        unordered_map<int, int>mpp;
         unordered_set<int>st;
 
         for (ll i = 1; i*i*i <= n; i++){
