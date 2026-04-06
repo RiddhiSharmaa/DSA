@@ -1,22 +1,14 @@
 class Solution {
 public:
-    using ll = __int128;
+    using ll = long double;
     int smallestBalancedIndex(vector<int>& nums) {
         int n = nums.size();
         vector<ll>sum(n, 0);
-        vector<ll>prod(n, -1);
-        prod[n-1] = 1;
-        for (int i = 1; i < n; i++){
-            sum[i] = (ll)nums[i-1] + sum[i-1];
-        }
+        vector<ll>prod(n, 1);
 
         for (int i = 1; i < n; i++){
             sum[i] = (ll)nums[i-1] + sum[i-1];
-            if (prod[n-i] > sum[n-i]) {
-                break;
-            } else {
-                prod[n-i-1] = ((ll)nums[n-i]) * prod[n-i];
-            }
+            prod[n-i-1] = (ll)nums[n-i] * prod[n-i];
         }
 
         for (int i = 0; i < n; i++){
