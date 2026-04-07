@@ -6,25 +6,20 @@ public:
         stack<int>st;
 
         for (int i = n-1; i >= 0; i--){
-            while (!st.empty() && nums2[i] >= nums2[st.top()]){
+            while (!st.empty() && nums2[i] >= st.top()){
                 st.pop();
             }
 
             if (!st.empty()) next[i] = st.top();
 
-            st.push(i);
+            st.push(nums2[i]);
         }
 
         vector<int>ans;
         for (int x : nums1){
             for (int i = 0; i < nums2.size(); i++){
                 if (nums2[i] == x){
-                    if (next[i] != -1){
-                        ans.push_back(nums2[next[i]]);
-                        break;
-                    } else {
-                        ans.push_back(-1);
-                    }
+                    ans.push_back(next[i]);
                 }
             }
         }
