@@ -3,16 +3,19 @@ public:
     using ll = long double;
     int smallestBalancedIndex(vector<int>& nums) {
         int n = nums.size();
-        vector<ll>sum(n, 0);
-        vector<ll>prod(n, 1);
+        ll sum = 0;
+        ll prod = 1;
+        int ans = -1;
 
-        for (int i = 1; i < n; i++){
-            sum[i] = (ll)nums[i-1] + sum[i-1];
-            prod[n-i-1] = (ll)nums[n-i] * prod[n-i];
+        for (int i = 0; i < n-1; i++){
+            sum += nums[i];
         }
 
-        for (int i = 0; i < n; i++){
-            if (sum[i] == prod[i]) return i;
+        for (int i = n-1; i >= 0; i--){
+            if (prod > sum) return ans;
+            if (sum == prod) return i;
+            if (i-1 > 0) sum -= nums[i-1];
+            if (i-1 > 0) prod *= nums[i];
         }
 
         return -1;
