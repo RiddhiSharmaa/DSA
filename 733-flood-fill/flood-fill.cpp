@@ -7,6 +7,7 @@ public:
         vector<int>row = {-1, 0, 1, 0};
         vector<int>col = {0, 1, 0, -1};
         int originalColor = image[sr][sc];
+        image[sr][sc] = color;
         queue<pair<int, int>>q;
         q.push({sr, sc});
 
@@ -15,7 +16,6 @@ public:
             q.pop();
             int nrow = p.first;
             int ncol = p.second;
-            image[nrow][ncol] = color;
 
             for (int i = 0; i < row.size(); i++){
                 int r = row[i] + nrow;
@@ -23,6 +23,7 @@ public:
 
                 if (r >= 0 && r < image.size() && c >= 0 && c < image[0].size() &&
                 image[r][c] == originalColor){
+                    image[r][c] = color;
                     q.push({r, c});
                 }
             }
