@@ -6,8 +6,7 @@ public:
         int m = prerequisites[0].size();
         vector<int>inDegree(numCourses, 0);
         vector<vector<int>>adj(numCourses);
-        int cnt = n;
-
+        
         for (auto& e : prerequisites){
             int u = e[1];
             int v = e[0];
@@ -29,11 +28,15 @@ public:
 
             for (auto& adjNode : adj[course]){
                 inDegree[adjNode]--;
-                cnt--;
                 if (inDegree[adjNode] == 0) q.push(adjNode);
             }
         }
 
-        return cnt == 0;
+        for (int i = 0; i < numCourses; i++){
+            if (inDegree[i] != 0) return false;
+        }
+
+
+        return true;
     }
 };
