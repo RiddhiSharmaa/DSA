@@ -6,7 +6,6 @@ public:
             return 0;
         }
         
-
         if (dp[i][prevIdx+1] != -1) return dp[i][prevIdx+1];
 
         int ans1 = 0, ans2 = 0;
