@@ -3,29 +3,20 @@ public:
     void setZeroes(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
-        vector<int>row(n, 0);
-        vector<int>col(m, 0);
-        bool first_row_zero = false, first_col_zero = false;
+        bool checkRow = false, checkCol = false;
 
         for (int i = 0; i < n; i++){
-            if (matrix[i][0] == 0){
-                first_row_zero = true;
-                break;
-            }
+            if (matrix[i][0] == 0) checkRow = true;
         }
-
         for (int j = 0; j < m; j++){
-            if (matrix[0][j] == 0){
-                first_col_zero = true;
-                break;
-            }
+            if (matrix[0][j] == 0) checkCol = true;
         }
 
         for (int i = 1; i < n; i++){
             for (int j = 1; j < m; j++){
                 if (matrix[i][j] == 0){
-                    matrix[i][0] = 0;
                     matrix[0][j] = 0;
+                    matrix[i][0] = 0; 
                 }
             }
         }
@@ -46,16 +37,16 @@ public:
             }
         }
 
-        if (first_row_zero){
+        if (checkRow){
             for (int i = 0; i < n; i++){
                 matrix[i][0] = 0;
             }
         }
 
-        if (first_col_zero){
+        if (checkCol){
             for (int j = 0; j < m; j++){
                 matrix[0][j] = 0;
             }
-        } 
+        }
     }
 };
