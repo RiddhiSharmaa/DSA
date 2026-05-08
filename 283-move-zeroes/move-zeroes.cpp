@@ -1,15 +1,15 @@
 class Solution {
 public:
-    using ll = long long;
     void moveZeroes(vector<int>& nums) {
         int n = nums.size();
-        int insertPosition = 0;
+        int i = 0, j = 1;
 
-        for (int i = 0; i < n; i++){
-            if (nums[i] != 0){
-                swap(nums[i], nums[insertPosition]);
-                insertPosition++;
+        while (i < n && j < n){
+            if (nums[i] == 0 && nums[j] != 0){
+                swap(nums[i], nums[j]);
             }
+            if (nums[i] != 0) i++;
+            j++;
         }
     }
 };
