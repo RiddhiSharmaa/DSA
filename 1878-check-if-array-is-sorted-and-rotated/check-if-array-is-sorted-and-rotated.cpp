@@ -6,7 +6,6 @@ public:
 
         for (int i = 0; i < 2*n; i++){
             if (cnt >= n-1) return true;
-            cout << cnt << endl;
             if (i+1 < 2*n && nums[i%n] <= nums[(i+1)%n]){
                 cnt++;
             }
