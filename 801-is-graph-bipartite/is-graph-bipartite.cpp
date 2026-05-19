@@ -1,22 +1,13 @@
 class Solution {
 public:
-    bool helper(int i, vector<int>& color, vector<vector<int>>& graph){
-        queue<pair<int,int>>q;
-        q.push({i, 0});
-        color[i] = 0;
+    bool helper(int i, int col, vector<int>& color, vector<vector<int>>& graph){
+        color[i] = col;
 
-        while (!q.empty()){
-            int node = q.front().first;
-            int col = q.front().second;
-            q.pop();
-
-            for (int adj : graph[node]){
-                int c = !col;
-                if (color[adj] != -1 && color[adj] != c) return false;
-                if (color[adj] == -1) {
-                    color[adj] = c;
-                    q.push({adj, c});
-                }
+        for (int adj : graph[i]){
+            if (color[adj] != -1 && color[adj] == col) return false;
+            if (color[adj] == -1) {
+                color[adj] = col;
+                if (!helper(adj, !col, color, graph)) return false;
             }
         }
 
@@ -28,7 +19,7 @@ public:
 
         for (int i = 0; i < graph.size(); i++){
             if (color[i] == -1){
-                if (!helper(i, color, graph)) return false;
+                if (!helper(i, 0, color, graph)) return false;
             }
         }
 
