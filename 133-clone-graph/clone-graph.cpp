@@ -27,19 +27,15 @@ public:
         queue<Node*>q;
         q.push(node);
 
-        Node* head; 
+        Node* head = new Node(node -> val);
+        mpp[1] = head;
+
         Node* neighNew;
         while (!q.empty()){
-            int n = q.front() -> val;
             Node* temp = q.front();
             q.pop();
 
-            if (mpp.find(n) == mpp.end()){
-                head = new Node(n);
-                mpp[n] = head;
-            } else {
-                head = mpp[n];
-            }
+            Node* curr = mpp[temp -> val];
 
             for (auto& neigh : temp -> neighbors){
                 if (mpp.find(neigh -> val) == mpp.end()){
@@ -49,10 +45,11 @@ public:
                 } else {
                     neighNew = mpp[neigh -> val];
                 }
-                head -> neighbors.push_back(neighNew);
+
+                curr -> neighbors.push_back(neighNew);
             }
         }
 
-        return mpp[1];
+        return head;
     }
 };
