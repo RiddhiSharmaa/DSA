@@ -10,7 +10,7 @@ public:
         }
 
         for (int i = n-1; i >= 0; i--){
-            ans[i] = ans[i] * suffix;
+            ans[i] *= suffix;
             suffix *= nums[i];
         }
 
