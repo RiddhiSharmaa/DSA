@@ -1,40 +1,32 @@
 class Solution {
-public: 
-    void helper(int i, int j, int &cnt, vector<int>& row, vector<int>& col, 
-    vector<vector<char>>& grid){
-        grid[i][j] = '2';
-        queue<pair<int, int>>q;
-        q.push({i, j});
+public:
+    void dfs(int i, int j, vector<int>& row, vector<int>& col, 
+    vector<vector<int>>& visited, vector<vector<char>>& grid){
+        visited[i][j] = 1;
 
-        while (!q.empty()){
-            int nrow = q.front().first;
-            int ncol = q.front().second;
-            q.pop();
-
-            for (int k = 0; k < row.size(); k++){
-                int r = nrow + row[k];
-                int c = ncol + col[k];
-
-                if (r >= 0 && r < grid.size() && c >= 0 && c < grid[0].size() && 
-                grid[r][c] == '1'){
-                    grid[r][c] = '2';
-                    q.push({r, c});
-                }
+        for (int k = 0; k < 4; k++){
+            int r = row[k] + i;
+            int c = col[k] + j;
+            if (r < grid.size() && r >= 0 && c >= 0 && c < grid[0].size() &&
+            !visited[r][c] && grid[r][c] == '1'){
+                dfs(r, c, row, col, visited, grid);
             }
         }
     }
     int numIslands(vector<vector<char>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        int cnt = 0;
+        vector<vector<int>>visited(n, vector<int>(m, 0));
         vector<int>row = {-1, 0, 1, 0};
         vector<int>col = {0, 1, 0, -1};
 
+        int cnt = 0;
+
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
-                if (grid[i][j] == '1'){
+                if (!visited[i][j] && grid[i][j] == '1'){
+                    dfs(i, j , row, col, visited, grid);
                     cnt++;
-                    helper(i, j, cnt, row, col, grid);
                 }
             }
         }
