@@ -30,12 +30,10 @@ public:
 
         dummy -> next = head;
         while (temp1 != nullptr && temp2 != nullptr){
-            if (temp1 && head && head -> val <= temp1 -> val && 
-            temp1 -> val < temp2 -> val){
+            if (temp1 -> val < temp2 -> val){
                 head -> next = temp1;
                 temp1 = temp1 -> next;
-            } else if (temp2 && head && head -> val <= temp2 -> val && 
-            temp2 -> val <= temp1 -> val){
+            } else if (temp2 -> val <= temp1 -> val){
                 head -> next = temp2;
                 temp2 = temp2 -> next;
             }
