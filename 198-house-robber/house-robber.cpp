@@ -1,18 +1,20 @@
 class Solution {
 public:
-    int helper(int i, vector<int>& dp, vector<int>& nums){
-        if (i >= nums.size()) return 0;
-        if (dp[i] != -1) return dp[i];
-
-        int notPick = helper(i+1, dp, nums);
-        int pick = nums[i] + helper(i+2, dp, nums);
-
-        return dp[i] = max(pick, notPick);
-    }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int>dp(n+1, -1);
+        if (n == 1) return nums[0];
+        if (n == 2) return max(nums[0], nums[1]);
 
-        return helper(0, dp, nums);
+        vector<int>dp(n+1, -1);
+        dp[0] = nums[0];
+        dp[1] = max(nums[0], nums[1]);
+
+        for (int i = 2; i < n; i++){
+            int notPick = dp[i-1];
+            int pick = nums[i] + dp[i-2];
+            dp[i] = max(pick, notPick);
+        }
+
+        return dp[n-1];
     }
 };
