@@ -1,74 +1,95 @@
 class LRUCache {
 public:
+    int cnt = 0;
+    int cap;
     struct Node{
-        int key, val;
+        int key;
+        int data;
         Node* next;
         Node* prev;
         Node(int key, int val){
             this -> key = key;
-            this -> val = val;
+            this -> data = val;
             next = nullptr;
             prev = nullptr;
         }
     };
-
-    int maxCapacity = 0;
-    Node* head = new Node(-1, -1);
-    Node* tail = new Node(-1, -1);
     unordered_map<int, Node*>mpp;
+    Node* head;
+    Node* tail;
+
+    void update(int key){
+        Node* temp = mpp[key];
+        Node* prevNode = temp -> prev;
+        Node* nextNode = temp -> next;
+        if (head == tail){
+            return;
+        }
+        if (temp == head){
+            nextNode -> prev = nullptr;
+            head = head -> next;
+            tail -> next = temp;
+            temp -> prev = tail;
+            temp -> next = nullptr;
+            tail = tail -> next;
+        } else if (temp != tail){
+            prevNode -> next = nextNode;
+            nextNode -> prev = prevNode;
+            tail -> next = temp;
+            temp -> prev = tail;
+            temp -> next = nullptr;
+            tail = tail -> next;
+        }
+    }
 
     LRUCache(int capacity) {
-        maxCapacity = capacity;
-        head -> next = tail;
-        tail -> prev = head;
-    }
-
-    void addNode(Node* toAdd){
-        Node* temp = head -> next;
-        toAdd -> next = temp;
-        toAdd -> prev = head;
-        temp -> prev = toAdd;
-        head -> next = toAdd;
-    }
-
-    void delNode(Node* toDelete){
-        Node* nextNode = toDelete -> next;
-        Node* prevNode = toDelete -> prev;
-        
-        nextNode -> prev = prevNode;
-        prevNode -> next = nextNode;
+        cap = capacity;
     }
     
     int get(int key) {
-        if (mpp.find(key) == mpp.end()) return -1;
-        Node* toFront = mpp[key];
-        delNode(toFront);
-        addNode(toFront);
-        return mpp[key] -> val;
+        if (mpp.find(key) != mpp.end()){
+            update(key);
+            return mpp[key] -> data;
+        }
+        return -1;
     }
     
     void put(int key, int value) {
-        if (mpp.find(key) != mpp.end()) {
-            mpp[key] -> val = value;
-            Node* toFront = mpp[key];
-            delNode(toFront);
-            addNode(toFront);
+        if (mpp.find(key) != mpp.end()){
+            update(key);
+            mpp[key] -> data = value;
             return;
+        } else {
+            Node* newNode = new Node(key, value);
+            if (cnt == 0){
+                head = newNode;
+                tail = newNode;
+                mpp[key] = newNode;
+                cnt++;
+            } else if (cnt == cap){
+                mpp.erase(head -> key);
+                Node* temp = head;
+                head = head -> next;
+                if (head) {
+                    head -> prev = nullptr;
+                    tail -> next = newNode;
+                    newNode -> prev = tail;
+                    tail = tail -> next;
+                } else {
+                    head = newNode;
+                    tail = newNode;
+                }
+                temp -> next = nullptr;
+                delete(temp);
+                mpp[key] = newNode;
+            } else {
+                tail -> next = newNode;
+                newNode -> prev = tail;
+                tail = tail -> next;
+                mpp[key] = newNode;
+                cnt++;
+            }
         }
-        if (mpp.size() == maxCapacity) {
-            Node* toDelete = tail -> prev;
-            mpp.erase(toDelete -> key);
-            delNode(toDelete);
-            delete(toDelete);
-        }
-
-        Node* toAdd = new Node(key, value);
-        mpp[toAdd -> key] = toAdd;
-        toAdd -> prev = head;
-        toAdd -> next = head -> next;
-        head -> next -> prev = toAdd;
-        head -> next = toAdd;
-        return;
     }
 };
 
