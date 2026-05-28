@@ -7,7 +7,6 @@ public:
 
         while (!q.empty()){
             auto [word, level] = q.front();
-            st.erase(word);
             q.pop();
 
             for (int i = 0; i < word.size(); i++){
