@@ -42,7 +42,7 @@ public:
         if (data.size() == 0) return nullptr;
         vector<string>nodes;
         string num = "";
-        
+
         for (int i = 0; i < data.size(); i++){
             if (data[i] != ','){
                 num += data[i];
@@ -51,6 +51,7 @@ public:
                 num = "";
             }
         }
+        nodes.push_back(num);
 
         TreeNode* root = new TreeNode(stoi(nodes[0]));
         queue<TreeNode*>q;
