@@ -10,18 +10,16 @@ public:
             q.pop();
 
             for (int i = 0; i < word.size(); i++){
+                char original = word[i];
                 for (int j = 0; j < 26; j++){
-                    string w1 = word.substr(0, i);
-                    char w2 = char('a' + j);
-                    string w3 = word.substr(i+1);
-                    string w = w1 + w2 + w3;
-
-                    if (st.find(w) != st.end()){
-                        if (endWord == w) return level+1;
-                        q.push({w, level+1});
-                        st.erase(w);
+                    word[i] = char('a' + j);
+                    if (st.find(word) != st.end()){
+                        if (endWord == word) return level+1;
+                        q.push({word, level+1});
+                        st.erase(word);
                     }
                 }
+                word[i] = original;
             }
         }
 
