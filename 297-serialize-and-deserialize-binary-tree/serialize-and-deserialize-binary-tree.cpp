@@ -9,50 +9,54 @@
  */
 class Codec {
 public:
-    // Encodes a tree to a single string.
-    string serialize(TreeNode* root) {
-        if (!root) return "";
-        string str = "";
+    void helper(TreeNode* root, string& serial){
+        if (!root) return;
         queue<TreeNode*>q;
         q.push(root);
 
         while (!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
-
-            if (node){
-                str.append(to_string(node -> val));
-                str.append(",");
+            int size = q.size();
+            for (int i = 0; i < size; i++){
+                TreeNode* node = q.front();
+                q.pop();
+                if (!node) {
+                    serial += "N,";
+                    continue;
+                }
+                serial += (to_string(node -> val) + ",");
                 q.push(node -> left);
                 q.push(node -> right);
-            } else {
-                str.append("N,");
-            }   
+            }
         }
-
-        return str;
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if (!root) return "";
+        string serial = "";
+        helper(root, serial);
+        return serial;
     }
 
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
-        if (data == "") return nullptr;
+        if (data.size() == 0) return nullptr;
         vector<string>nodes;
-        string temp = "";
-
-        for (char c : data){
-            if (c == ','){
-                nodes.push_back(temp);
-                temp = "";
+        string num = "";
+        
+        for (int i = 0; i < data.size(); i++){
+            if (data[i] != ','){
+                num += data[i];
             } else {
-                temp += c;
+                nodes.push_back(num);
+                num = "";
             }
         }
 
         TreeNode* root = new TreeNode(stoi(nodes[0]));
         queue<TreeNode*>q;
         q.push(root);
-
         int i = 1;
+
         while (!q.empty()){
             TreeNode* node = q.front();
             q.pop();
@@ -60,13 +64,13 @@ public:
             if (nodes[i] != "N"){
                 node -> left = new TreeNode(stoi(nodes[i]));
                 q.push(node -> left);
-            }
+            } 
             i++;
 
             if (nodes[i] != "N"){
                 node -> right = new TreeNode(stoi(nodes[i]));
                 q.push(node -> right);
-            }
+            } 
             i++;
         }
 
