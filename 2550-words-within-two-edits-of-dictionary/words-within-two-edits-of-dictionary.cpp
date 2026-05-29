@@ -9,6 +9,7 @@ public:
                 int cnt = 0;
                 for (int k = 0; k < i.size(); k++){
                     if (i[k] != j[k])cnt++;
+                    if (cnt > 2) break;
                 }
                 if (cnt <= 2) {
                     ans.push_back(i);
