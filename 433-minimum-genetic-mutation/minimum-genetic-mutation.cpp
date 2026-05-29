@@ -9,7 +9,6 @@ public:
 
         while (!q.empty()){
             auto [gene, num] = q.front();
-            st.erase(gene);
             q.pop();
 
             for (int i = 0; i < 8; i++){
@@ -21,6 +20,7 @@ public:
                             return num+1;
                         }
                         q.push({gene, num+1});
+                        st.erase(gene);
                     }
                 }
                 gene[i] = original;
