@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void helper(int i, vector<int>& temp, vector<int>& visited, vector<int>& nums, vector<vector<int>>& ans){
+    void helper(vector<int>& temp, vector<int>& visited, vector<int>& nums, vector<vector<int>>& ans){
         if (temp.size() == nums.size()){
             ans.push_back(temp);
             return;
@@ -11,7 +11,7 @@ public:
             if (visited[j]) continue;
             visited[j] = 1;
             temp.push_back(nums[j]);
-            helper(j+1, temp, visited, nums, ans);
+            helper(temp, visited, nums, ans);
             temp.pop_back();
             visited[j] = 0;
         }
@@ -22,7 +22,7 @@ public:
         vector<vector<int>>ans;
         vector<int>temp;
         vector<int>visited(n, 0);
-        helper(0, temp, visited, nums, ans);
+        helper(temp, visited, nums, ans);
 
         return ans;
     }
