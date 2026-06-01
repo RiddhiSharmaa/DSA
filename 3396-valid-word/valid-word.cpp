@@ -7,14 +7,14 @@ public:
         bool hasConsonant = false;
 
         for (char c : word){
-            if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+            if (!isalnum(c)) return false;
+            if (isalpha(c)){
                 if (st.find(c) != st.end()){
                     hasVowel = true;
                 } else {
                     hasConsonant = true;
                 }
-            } else if (c - '0' >= 0 && c - '0' <= 9) continue;
-            else return false;
+            }
         }
 
         if (hasVowel && hasConsonant) return true;
