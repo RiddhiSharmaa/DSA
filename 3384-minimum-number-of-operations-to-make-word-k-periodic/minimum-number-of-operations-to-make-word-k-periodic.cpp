@@ -10,24 +10,13 @@ public:
             i += k;
         }
         
-        string str = "";
         int freq = INT_MIN;
         for (auto& [s, f] : mpp){
             if (f > freq){
                 freq = f;
-                str = s;
             }
         }
 
-        i = 0;
-        int cnt = 0;
-        while (i < n){
-            if (word.substr(i, k) != str){
-                cnt++;
-            }
-            i += k;
-        }
-
-        return cnt;
+        return (n/k) - freq;
     }
 };
