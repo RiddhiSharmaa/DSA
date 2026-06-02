@@ -2,7 +2,6 @@ class Solution {
 public:
     long long maximumImportance(int n, vector<vector<int>>& roads) {
         vector<int>inDegree(n, 0);
-        vector<int>imp(n, 0);
         long long ans = 0;
 
         for (auto& e : roads){
@@ -10,20 +9,12 @@ public:
             inDegree[e[0]]++;
         }
 
-        priority_queue<pair<int, int>>pq;
+        sort(inDegree.rbegin(), inDegree.rend());
+
+        int limit = n;
         for (int i = 0; i < n; i++){
-            pq.push({inDegree[i], i});
-        }
-
-        while(!pq.empty()){
-            int num = pq.top().second;
-            imp[num] = n;
-            n--;
-            pq.pop();
-        }
-
-        for (auto& e : roads){
-            ans += (imp[e[0]] + imp[e[1]]);
+            ans += ((long long)inDegree[i] * limit);
+            limit--;
         }
 
         return ans;
