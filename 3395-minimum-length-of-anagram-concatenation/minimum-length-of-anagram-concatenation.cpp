@@ -15,8 +15,8 @@ public:
         }
         sort(divisors.begin(), divisors.end());
 
+        bool flag = false;
         for (int i = 0; i < divisors.size(); i++){
-            bool flag = false;
             string str = s.substr(0, divisors[i]);
             sort(str.begin(), str.end());
             for (int j = divisors[i]; j < n; j += str.size()){
