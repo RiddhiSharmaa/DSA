@@ -1,7 +1,7 @@
 class Solution {
 public:
     long long maximumImportance(int n, vector<vector<int>>& roads) {
-        vector<int>inDegree(n, 0);
+        vector<long long>inDegree(n, 0);
         long long ans = 0;
 
         for (auto& e : roads){
@@ -13,7 +13,7 @@ public:
 
         int limit = n;
         for (int i = 0; i < n; i++){
-            ans += ((long long)inDegree[i] * limit);
+            ans += (inDegree[i] * limit);
             limit--;
         }
 
