@@ -16,20 +16,26 @@ public:
         sort(divisors.begin(), divisors.end());
 
         bool flag = false;
-        for (int i = 0; i < divisors.size(); i++){
-            string str = s.substr(0, divisors[i]);
-            sort(str.begin(), str.end());
-            for (int j = divisors[i]; j < n; j += str.size()){
-                string k = s.substr(j, str.size());
-                sort(k.begin(), k.end());
-                if (k != str){
+        for (int i : divisors){
+            vector<int>v(26, 0);
+            for (int j = 0; j < i; j++){
+                v[s[j] - 'a']++;
+            }
+
+            for (int j = i; j < n; j += i){
+                vector<int>t(26, 0);
+                for (int k = j; k < i+j; k++){
+                    t[s[k] - 'a']++;
+                }
+                if (t != v){
                     flag = true;
                     break;
                 } else {
                     flag = false;
                 }
             }
-            if (!flag) return divisors[i];
+
+            if (!flag) return i;
         }
 
         return n;
