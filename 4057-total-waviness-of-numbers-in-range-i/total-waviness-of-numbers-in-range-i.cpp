@@ -4,8 +4,8 @@ public:
         int wavi = 0;
 
         for (int i = num1; i <= num2; i++){
+            if (i < 100) continue;
             string s = to_string(i);
-            if (s.size() < 3) continue;
             for (int j = 1; j < s.size()-1; j++){
                 if ((s[j] < s[j+1] && s[j] < s[j-1])||(s[j] > s[j+1] && s[j] > s[j-1])){
                     wavi++;
