@@ -5,6 +5,8 @@ public:
     int helper(int i, vector<string>& words){
         if (i >= words.size()) return 0;
 
+        int notTake = helper(i+1, words);
+
         int s = 0;
         bool flag = true;
         for (int j = 0; j < words[i].size(); j++){
@@ -30,8 +32,6 @@ public:
                 mpp2[c-'a']++;
             }
         }
-   
-        int notTake = helper(i+1, words);
 
         return max(take, notTake);
     }
