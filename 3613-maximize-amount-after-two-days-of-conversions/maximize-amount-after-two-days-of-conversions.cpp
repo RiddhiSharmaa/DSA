@@ -39,11 +39,11 @@ public:
         auto day1 = helper(initialCurrency, mpp);
         double ans = 1.0;
 
-        for (auto& [currency, rate] : day1){
+        for (auto& [currency, amountAfterDay1] : day1){
             auto day2 = helper(currency, mpp2);
 
             if (day2.find(initialCurrency) != day2.end()){
-                ans = max(ans, day1[currency] * day2[initialCurrency]);
+                ans = max(ans, amountAfterDay1 * day2[initialCurrency]);
             }
         }
 
