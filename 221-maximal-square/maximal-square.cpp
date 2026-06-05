@@ -5,12 +5,12 @@ public:
         if (i < 0 || j < 0) return 0;
         if (dp[i][j] != -1) return dp[i][j];
 
-        int right = helper(i-1, j, dp, matrix);
-        int down = helper(i, j-1, dp, matrix);
+        int left = helper(i-1, j, dp, matrix);
+        int up = helper(i, j-1, dp, matrix);
         int diag = helper(i-1, j-1, dp, matrix);
 
         if (matrix[i][j] == '1'){
-            dp[i][j] = 1 + min({right, down, diag});
+            dp[i][j] = 1 + min({left, up, diag});
             return dp[i][j];
         }
 
