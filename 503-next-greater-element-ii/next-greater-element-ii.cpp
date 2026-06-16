@@ -6,12 +6,12 @@ public:
         stack<int>st;
 
         for (int i = 2*n-1; i >= 0; i--){
-            while (!st.empty() && nums[i%n] >= st.top()){
+            while (!st.empty() && nums[st.top()%n] <= nums[i%n]){
                 st.pop();
             }
 
-            if (!st.empty()) ans[i%n] = st.top();
-            st.push(nums[i%n]);
+            if (!st.empty()) ans[i%n] = nums[st.top()];
+            st.push(i%n);
         }
 
         return ans;
