@@ -1,18 +1,24 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int i = 0, j = 1;
+        int n = nums.size();
+        int ans = 0;
 
-        while (j < nums.size()){
-            if (nums[i] == nums[j]){
-                j++; // points to unique number only
-            } else {
-                i++; // pointer to swap numbers in vector
-                swap(nums[i], nums[j]);
-                j++;
-            }
+        for (int i = 0; i < n; i++){
+            if (i > 0 && nums[i] == nums[i-1]) continue;
+            ans++;
         }
 
-        return i+1;
+        int k = 1;
+        for (int i = 1; i < n; i++){
+            if (k < ans && i > 0 && nums[i] != nums[k-1]){
+                nums[k] = nums[i];
+                k++;
+            }
+            if (k >= ans) break;
+        }
+        
+
+        return ans;
     }
 };
