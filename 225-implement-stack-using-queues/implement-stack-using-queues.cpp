@@ -10,14 +10,13 @@ public:
     }
     
     int pop() {
+        if (empty()) return -1;
         while (q1.size() > 1){
             q2.push(q1.front());
             q1.pop();
         }
-
         int ans = q1.front();
         q1.pop();
-
         while (!q2.empty()){
             q1.push(q2.front());
             q2.pop();
@@ -27,15 +26,14 @@ public:
     }
     
     int top() {
+        if (empty()) return -1;
         while (q1.size() > 1){
             q2.push(q1.front());
             q1.pop();
         }
-
         int ans = q1.front();
         q2.push(q1.front());
         q1.pop();
-
         while (!q2.empty()){
             q1.push(q2.front());
             q2.pop();
@@ -45,7 +43,8 @@ public:
     }
     
     bool empty() {
-        return q1.empty();
+        if (q1.size() == 0) return true;
+        return false;
     }
 };
 
