@@ -4,11 +4,14 @@ public:
 
     int helper(int i, vector<int>& coins, int target){
         if (target == 0) return 0;
-        if (i >= coins.size() || target < 0) return 1e9;
+        if (i >= coins.size()) return 1e9;
         if (dp[i][target] != -1) return dp[i][target];
 
         int notPick = helper(i+1, coins, target);
-        int pick = 1 + helper(i, coins, target - coins[i]);
+        int pick = 1e9;
+        if (target - coins[i] >= 0){ 
+            pick = 1 + helper(i, coins, target - coins[i]);
+        }
 
         return dp[i][target] = min(pick, notPick);
     }
