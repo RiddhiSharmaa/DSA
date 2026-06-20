@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void helper(int i, vector<int>temp, vector<int>& nums, vector<vector<int>>& ans){
+    void helper(int i, vector<int>&temp, vector<int>& nums, vector<vector<int>>& ans){
         if (i >= nums.size()) {
             ans.push_back(temp);
             return;
