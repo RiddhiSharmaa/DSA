@@ -1,25 +1,24 @@
 class Solution {
 public:
-    bool checkPalindrome(string& k){
-        int n = k.size();
-
+    bool palindrome(string& s){
+        int n = s.size();
         for (int i = 0; i < n/2; i++){
-            if (k[i] != k[n-i-1]) return false;
+            if (s[i] != s[n-i-1]) return false;
         }
-
         return true;
     }
-    void helper(int i, vector<string>& temp, vector<vector<string>>& ans, string& s){
-        if (i >= s.size()){
+    void helper(int idx, vector<string>& temp, string& s, vector<vector<string>>& ans){
+        if (idx == s.size()){
             ans.push_back(temp);
             return;
         }
-        for (int l = i; l < s.size(); l++){
-            string str = s.substr(i, l-i+1);
-            if (checkPalindrome(str)){
+
+        for (int i = idx; i < s.size(); i++){
+            string str = s.substr(idx, i-idx+1);
+            if (palindrome(str)){
                 temp.push_back(str);
-                helper(l+1, temp, ans, s);
-                temp.pop_back(); //backtrack
+                helper(i+1, temp, s, ans);
+                temp.pop_back();
             }
         }
     }
@@ -27,8 +26,7 @@ public:
         int n = s.size();
         vector<vector<string>>ans;
         vector<string>temp;
-
-        helper(0, temp, ans, s);
+        helper(0, temp, s, ans);
 
         return ans;
     }
