@@ -21,7 +21,7 @@ public:
                 if (i+1 < n && s[i+1] == 'L'){
                     ans += 40;
                     i++;
-                } else if (s[i+1] == 'C'){
+                } else if (i+1 < n && s[i+1] == 'C'){
                     ans += 90;
                     i++;
                 } else {
@@ -31,7 +31,7 @@ public:
                 if (i+1 < n && s[i+1] == 'D'){
                     ans += 400;
                     i++;
-                } else if (s[i+1] == 'M'){
+                } else if (i+1 < n && s[i+1] == 'M'){
                     ans += 900;
                     i++;
                 } else {
