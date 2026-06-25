@@ -37,7 +37,7 @@ public:
                 } else {
                     ans += 100;
                 }
-            } else if (mpp.find(s[i]) != mpp.end()){
+            } else{
                 ans += mpp[s[i]];
             }
         }
