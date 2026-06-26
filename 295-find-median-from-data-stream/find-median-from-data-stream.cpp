@@ -7,19 +7,10 @@ public:
     }
     
     void addNum(int num) {
-        if (maxH.empty() || (!minH.empty() && num <= minH.top())){
+        if (maxH.empty() || num < maxH.top()){
             maxH.push(num);
-        } else if (minH.empty() || (!maxH.empty() && num > maxH.top())){
+        } else {
             minH.push(num);
-        }
-
-        if (!maxH.empty() && !minH.empty() && maxH.top() > minH.top()){
-            minH.push(maxH.top());
-            maxH.pop();
-        }
-        if (!maxH.empty() && !minH.empty() && minH.top() < maxH.top()){
-            maxH.push(minH.top());
-            minH.pop();
         }
 
         if (maxH.size()+1 < minH.size()){
