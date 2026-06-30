@@ -1,29 +1,39 @@
 class Solution {
 public:
     string reverseWords(string s) {
+        stack<char>st;
+        int id = 0, j = s.size()-1;
         while (true){
-            if (s[s.size()-1] == ' ') s.pop_back();
+            if (s[id] == ' ') id++;
             else break;
         }
-        reverse(s.begin(), s.end());
         while (true){
-            if (s[s.size()-1] == ' ') s.pop_back();
+            if (s[j] == ' ') j--;
             else break;
         }
         string w = "";
         string ans = "";
 
-        for (int i = 0; i < s.size(); i++){
+        for (int i = id; i <= j; i++){
             if (s[i] == ' '){
-                reverse(w.begin(), w.end());
-                ans += w;
-                if (i > 0 && s[i-1] != ' ') ans += ' ';
-                w = "";
+                if (!st.empty() && st.top() != ' ') st.push(s[i]);
                 continue;
             }
-            w += s[i];
+            st.push(s[i]);
         }
 
+        while (!st.empty()){
+            if (st.top() == ' '){
+                reverse(w.begin(), w.end());
+                ans += w + ' ';
+                w = "";
+                st.pop();
+                continue;
+            }
+            w += st.top();
+            st.pop();
+        }
+        
         reverse(w.begin(), w.end());
         ans += w;
         return ans;
