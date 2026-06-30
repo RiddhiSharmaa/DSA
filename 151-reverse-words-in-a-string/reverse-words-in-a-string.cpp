@@ -10,7 +10,6 @@ public:
             if (s[s.size()-1] == ' ') s.pop_back();
             else break;
         }
-        cout << s << endl;
         string w = "";
         string ans = "";
 
