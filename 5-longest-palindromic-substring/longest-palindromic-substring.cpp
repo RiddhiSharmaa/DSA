@@ -1,11 +1,10 @@
 class Solution {
 public:
-    bool checkPalindrome(int& i, int& j, string& s){
-        int left = i, right = j;
-        while (left < right){
-            if (s[left] != s[right]) return false;
-            left++;
-            right--;
+    bool check(int i, int j, string& s){
+        while (i < j){
+            if (s[i] != s[j]) return false;
+            i++;
+            j--;
         }
 
         return true;
@@ -16,8 +15,10 @@ public:
 
         for (int i = 0; i < n; i++){
             for (int j = i; j < n; j++){
-                if (ans.size() < (j-i+1) && checkPalindrome(i, j, s)){
-                    ans = s.substr(i, j-i+1);
+                if ((j-i+1) > ans.size()){
+                    if (check(i, j, s)){
+                        ans = s.substr(i, j-i+1);
+                    }
                 }
             }
         }
