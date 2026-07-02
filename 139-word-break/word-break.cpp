@@ -1,25 +1,24 @@
 class Solution {
 public:
-    int n1;
-    bool helper(int i, string s, unordered_set<string>& st, vector<int>& dp){
-        if (i >= n1) return true;
-
+    int dp[301];
+    bool helper(int i, string& s, unordered_set<string>& st){
+        if (i >= s.size()) return true;
         if (dp[i] != -1) return dp[i];
 
-        for (int len = 1; len <= s.size(); len++){
-            string temp = s.substr(i, len);
-            if (st.count(temp) && helper(i+len, s, st, dp)){
-                return dp[i] = true;
+        for (int k = i; k < s.size(); k++){
+            string str = s.substr(i, k-i+1);
+            if (st.count(str)){
+                if (helper(k+1, s, st)) return dp[i] = true;
             }
         }
 
         return dp[i] = false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
-        n1 = s.size();
         unordered_set<string>st(wordDict.begin(), wordDict.end());
-        vector<int>dp(n1, -1);
-        
-        return helper(0, s, st, dp);
+        memset(dp, -1, sizeof(dp));
+
+        return helper(0, s, st);
+
     }
 };
