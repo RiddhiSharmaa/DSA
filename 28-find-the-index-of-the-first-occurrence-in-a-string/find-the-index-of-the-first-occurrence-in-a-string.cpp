@@ -5,11 +5,10 @@ public:
         int ans = -1;
         int i = 0;
 
-        while (i < n){
+        for (int i = 0; i < n; i++){
             if (haystack.substr(i, m) == needle) {
                 return i;
             }
-            i++;
         }
 
         return -1;
