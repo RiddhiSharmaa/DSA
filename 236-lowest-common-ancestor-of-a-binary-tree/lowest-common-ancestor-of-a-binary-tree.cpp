@@ -20,7 +20,7 @@ public:
         return right;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (!root) return nullptr;\
+        if (!root) return nullptr;
         return helper(root, p, q);
     }
 };
