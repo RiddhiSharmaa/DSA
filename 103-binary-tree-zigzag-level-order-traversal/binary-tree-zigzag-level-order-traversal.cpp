@@ -16,6 +16,7 @@ public:
         queue<TreeNode*>q;
         q.push(root);
         vector<vector<int>>ans;
+        int rev = false;
 
         while (!q.empty()){
             int n = q.size();
@@ -28,11 +29,11 @@ public:
                 if (node -> left) q.push(node -> left);
                 if (node -> right) q.push(node -> right);
             }
+            if (rev) {
+                reverse(temp.begin(), temp.end());
+            }
             ans.push_back(temp);
-        }
-
-        for (int i = 1; i < ans.size(); i += 2){
-            reverse(ans[i].begin(), ans[i].end());
+            rev = !rev;
         }
 
         return ans;
