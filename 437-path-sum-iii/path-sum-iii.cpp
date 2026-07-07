@@ -11,35 +11,26 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* curr, long long targetSum, int& ans){
-        if (!curr) return;
-        if (targetSum == curr -> val){
-            ans++;
-        }
-        dfs(curr -> left, targetSum - curr -> val, ans);
-        dfs(curr -> right, targetSum - curr -> val, ans);
+    void helper(TreeNode* root, long long currSum, int target, 
+    unordered_map<long long, int>& prefix, int& ans){
+        if (!root) return;
+
+        currSum += root -> val;
+        if (prefix.find(currSum - target) != prefix.end()){
+            ans += prefix[currSum - target];
+        } 
+        prefix[currSum]++;
+
+        helper(root -> left, currSum, target, prefix, ans);
+        helper(root -> right, currSum, target, prefix, ans);
+        prefix[currSum]--;
     }
     int pathSum(TreeNode* root, int targetSum) {
-        if (!root) return 0;
-        queue<TreeNode*>q;
-        q.push(root);
+        unordered_map<long long, int>prefix;
+        prefix[0] = 1;
         int ans = 0;
 
-        while (!q.empty()){
-            int size = q.size();
-            for (int i = 0; i < size; i++){
-                TreeNode* curr = q.front();
-                q.pop();
-                dfs(curr, targetSum, ans);
-
-                if (curr -> left){
-                    q.push(curr -> left);
-                }
-                if (curr -> right){
-                    q.push(curr -> right);
-                }
-            }
-        }
+        helper(root, 0, targetSum, prefix, ans);
 
         return ans;
     }
