@@ -14,11 +14,9 @@ public:
     int ans = INT_MIN;
     int helper(TreeNode* root){
         if (!root) return 0;
-        int left = helper(root -> left);
-        int right = helper(root -> right);
-        ans = max({ans, left + right + root -> val, left + root -> val, 
-        right + root -> val, root -> val});
-        if (left < 0 && right < 0) return root -> val;
+        int left = max(0, helper(root -> left));
+        int right = max(0, helper(root -> right));
+        ans = max(ans, left + right + root -> val);
         return max(left, right) + root -> val;
     }
     int maxPathSum(TreeNode* root) {
