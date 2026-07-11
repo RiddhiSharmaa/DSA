@@ -6,9 +6,10 @@ public:
 
         for (int i = 0; i < n; i++){
             int cnt = 0;
-            string s = to_string(nums[i]);
-            for (int j = 0; j < s.size(); j++){
-                if (s[j]-'0' == digit) cnt++;
+            while (nums[i] > 0){
+                int d = nums[i]%10;
+                if (d == digit) cnt++;
+                nums[i] /= 10;
             }
             ans += cnt;
         }
