@@ -22,6 +22,7 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
+        if (!node) return nullptr;
         unordered_map<Node*, Node*>mpp;
         queue<Node*>q;
         q.push(node);
@@ -29,7 +30,7 @@ public:
         while (!q.empty()){
             Node* curr = q.front();
             q.pop();
-            if (curr && mpp.find(curr) == mpp.end()) mpp[curr] = new Node(curr -> val);
+            if (mpp.find(curr) == mpp.end()) mpp[curr] = new Node(curr -> val);
             else continue;
 
             vector<Node*>&neigh = curr -> neighbors;
@@ -44,7 +45,7 @@ public:
         while (!q.empty()){
             Node* curr = q.front();
             q.pop();
-            if (!curr) continue;
+            
             if (vis[curr -> val]) continue;
             vis[curr -> val] = 1;
             vector<Node*>&neigh = curr -> neighbors;
