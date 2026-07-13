@@ -22,34 +22,38 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        if (!node) return nullptr;
-        unordered_map<int, Node*>mpp;
+        unordered_map<Node*, Node*>mpp;
         queue<Node*>q;
         q.push(node);
 
-        Node* head = new Node(node -> val);
-        mpp[1] = head;
-
-        Node* neighNew;
         while (!q.empty()){
-            Node* temp = q.front();
+            Node* curr = q.front();
             q.pop();
+            if (curr && mpp.find(curr) == mpp.end()) mpp[curr] = new Node(curr -> val);
+            else continue;
 
-            Node* curr = mpp[temp -> val];
-
-            for (auto& neigh : temp -> neighbors){
-                if (mpp.find(neigh -> val) == mpp.end()){
-                    neighNew = new Node(neigh -> val);
-                    mpp[neigh -> val] = neighNew;
-                    q.push(neigh);
-                } else {
-                    neighNew = mpp[neigh -> val];
-                }
-
-                curr -> neighbors.push_back(neighNew);
+            vector<Node*>&neigh = curr -> neighbors;
+            for (int i = 0; i < neigh.size(); i++){
+                q.push(neigh[i]);
             }
         }
 
-        return head;
+        q.push(node);
+        vector<int>vis(mpp.size()+1);
+
+        while (!q.empty()){
+            Node* curr = q.front();
+            q.pop();
+            if (!curr) continue;
+            if (vis[curr -> val]) continue;
+            vis[curr -> val] = 1;
+            vector<Node*>&neigh = curr -> neighbors;
+            for (int i = 0; i < neigh.size(); i++){
+                mpp[curr] -> neighbors.push_back(mpp[neigh[i]]);
+                q.push(neigh[i]);
+            }
+        }
+
+        return mpp[node];
     }
 };
