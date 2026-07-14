@@ -1,25 +1,25 @@
 class Solution {
 public:
-    bool helper(int i, int col, vector<int>& color, vector<vector<int>>& graph){
-        color[i] = col;
+    bool dfs(int node, int color, vector<int>& col, vector<vector<int>>& graph){
+        col[node] = color;
 
-        for (int adj : graph[i]){
-            if (color[adj] != -1 && color[adj] == col) return false;
-            if (color[adj] == -1) {
-                color[adj] = col;
-                if (!helper(adj, !col, color, graph)) return false;
+        for (auto& n : graph[node]){
+            if (col[n] == -1){
+                if (!dfs(n, !color, col, graph)) return false;
+            } else if (col[n] == color){
+                return false;
             }
         }
 
         return true;
     }
-
     bool isBipartite(vector<vector<int>>& graph) {
-        vector<int>color(graph.size(), -1);
+        int n = graph.size();
+        vector<int>col(n, -1);
 
-        for (int i = 0; i < graph.size(); i++){
-            if (color[i] == -1){
-                if (!helper(i, 0, color, graph)) return false;
+        for (int i = 0; i < n; i++){
+            if (col[i] == -1){
+                if (!dfs(i, 0, col, graph)) return false;
             }
         }
 
