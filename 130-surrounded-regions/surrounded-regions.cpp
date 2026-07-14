@@ -3,7 +3,6 @@ public:
     int dr[4] = {-1, 0, 1, 0};
     int dc[4] = {0, 1, 0, -1};
     void helper(int i, int j, vector<vector<char>>& board, vector<vector<int>>& vis){
-        board[i][j] = 'C';
         vis[i][j] = 1;
 
         for (int k = 0; k < 4; k++){
@@ -40,16 +39,8 @@ public:
 
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
-                if (board[i][j] == 'O') {
+                if (board[i][j] == 'O' && !vis[i][j]) {
                     board[i][j] = 'X';
-                }
-            }
-        }
-
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                if (board[i][j] == 'C') {
-                    board[i][j] = 'O';
                 }
             }
         }
