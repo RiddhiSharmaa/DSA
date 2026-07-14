@@ -22,13 +22,11 @@ public:
             int node = pq.top().second.second;
             pq.pop();
 
-            if (stops > k) continue;
-
             for (auto& n : adj[node]){
                 int adjNode = n.first;
                 int adjPrice = n.second;
 
-                if (adjPrice + price < dist[adjNode]){
+                if (stops+1 <= k+1 && adjPrice + price < dist[adjNode]){
                     dist[adjNode] = adjPrice + price;
                     pq.push({stops+1, {dist[adjNode], adjNode}});
                 }
