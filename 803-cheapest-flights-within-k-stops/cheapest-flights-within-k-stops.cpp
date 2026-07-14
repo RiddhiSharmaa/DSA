@@ -11,15 +11,14 @@ public:
             adj[u].push_back({v, w});
         }
 
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>,
-        greater<pair<int, pair<int, int>>>>pq;
+        queue<pair<int, pair<int, int>>>pq;
         pq.push({0, {0, src}});
         dist[src] = 0;
 
         while (!pq.empty()){
-            int stops = pq.top().first;
-            int price = pq.top().second.first;
-            int node = pq.top().second.second;
+            int stops = pq.front().first;
+            int price = pq.front().second.first;
+            int node = pq.front().second.second;
             pq.pop();
 
             for (auto& n : adj[node]){
