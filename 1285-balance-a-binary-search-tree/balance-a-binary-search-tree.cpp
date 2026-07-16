@@ -11,26 +11,25 @@
  */
 class Solution {
 public:
-    TreeNode* constructBST(int low, int high, vector<int>& inorder){
-        if (low == high) return new TreeNode(inorder[low]);
+    TreeNode* constructBST(int low, int high, vector<TreeNode*>& inorder){
         if (low > high) return nullptr;
 
         int mid = (low + high)/2;
-        TreeNode* root = new TreeNode(inorder[mid]);
+        TreeNode* root = inorder[mid];
 
         root -> left = constructBST(low, mid-1, inorder);
         root -> right = constructBST(mid+1, high, inorder);
        
         return root;
     }
-    void getInorder(TreeNode* root, vector<int>& inorder){
+    void getInorder(TreeNode* root, vector<TreeNode*>& inorder){
         if (!root) return;
         getInorder(root -> left, inorder);
-        inorder.push_back(root -> val);
+        inorder.push_back(root );
         getInorder(root -> right, inorder);
     }
     TreeNode* balanceBST(TreeNode* root) {
-        vector<int>inorder;
+        vector<TreeNode*>inorder;
         getInorder(root, inorder);
         return constructBST(0, inorder.size()-1, inorder);
     }
