@@ -24,7 +24,7 @@ public:
             parent[px] = py;
         } else {
             rank[px]++;
-            parent[px] = py;
+            parent[py] = px;
         }
     }
 
