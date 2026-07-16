@@ -48,7 +48,8 @@ public:
         }
 
         DSU pts(n);
-        while (!pq.empty()){
+        int edges = 0;
+        while (!pq.empty() && edges < n){
             int d = pq.top().first;
             int n1 = pq.top().second.first;
             int n2 = pq.top().second.second;
@@ -58,6 +59,7 @@ public:
             else {
                 minCost += d;
                 pts.updateRank(n1, n2);
+                edges++;
             }
         }
         
