@@ -17,7 +17,8 @@ public:
     void updateRank(int x, int y){
         int px = findParent(x);
         int py = findParent(y);
-        if (rank[px] > rank[py]){
+        if (px == py) return;
+        else if (rank[px] > rank[py]){
             rank[px]++;
             parent[py] = px;
         } else{
