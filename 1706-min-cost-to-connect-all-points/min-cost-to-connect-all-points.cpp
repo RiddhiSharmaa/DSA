@@ -18,11 +18,13 @@ public:
         int px = findParent(x);
         int py = findParent(y);
         if (px == py) return;
-        else if (rank[px] > rank[py]){
+        if (rank[px] > rank[py]){
             rank[px]++;
             parent[py] = px;
-        } else{
+        } else if (rank[py] > rank[px]){
             rank[py]++;
+            parent[px] = py;
+        } else {
             parent[px] = py;
         }
     }
