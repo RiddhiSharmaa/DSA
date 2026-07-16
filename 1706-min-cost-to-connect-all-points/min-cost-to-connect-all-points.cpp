@@ -1,11 +1,39 @@
+class DSU{
+public:
+    vector<int>parent, rank;
+    DSU(int n){
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++){
+            parent[i] = i;
+        }
+    }
+
+    int findParent(int x){
+        if (parent[x] == x) return x;
+        return parent[x] = findParent(parent[x]);
+    }
+
+    void updateRank(int x, int y){
+        int px = findParent(x);
+        int py = findParent(y);
+        if (rank[px] > rank[py]){
+            rank[px]++;
+            parent[py] = px;
+        } else{
+            rank[py]++;
+            parent[px] = py;
+        }
+    }
+
+};
 class Solution {
 public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
-        priority_queue<pair<int, int>, vector<pair<int, int>>,
-        greater<pair<int, int>>>pq;
-        vector<int>vis(n, 0);
-        vector<vector<pair<int, int>>>adj(n);
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>,
+        greater<pair<int, pair<int, int>>>>pq;
+        int minCost = 0;
 
         for (int i = 0; i < n; i++){
             for (int j = i+1; j < n; j++){
@@ -14,32 +42,24 @@ public:
                 int y1 = points[i][1];
                 int y2 = points[j][1];
                 int dist = abs(x1-x2) + abs(y1-y2);
-                adj[i].push_back({dist, j});
-                adj[j].push_back({dist, i});
+                pq.push({dist, {i, j}});
             }
         }
 
-        int minCost = 0;
-        pq.push({0, 0});
-
+        DSU pts(n);
         while (!pq.empty()){
             int d = pq.top().first;
-            int n = pq.top().second;
+            int n1 = pq.top().second.first;
+            int n2 = pq.top().second.second;
             pq.pop();
 
-            if (vis[n]) continue;
-            minCost += d;
-            vis[n] = 1;
-
-            for (auto& p : adj[n]){
-                int neigh = p.second;
-                int dist = p.first;
-                if (!vis[neigh]){
-                    pq.push({dist, neigh});
-                }
+            if (pts.findParent(n1) == pts.findParent(n2)) continue;
+            else {
+                minCost += d;
+                pts.updateRank(n1, n2);
             }
         }
-
+        
         return minCost;
     }
 };
