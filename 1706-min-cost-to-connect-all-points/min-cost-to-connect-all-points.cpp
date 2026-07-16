@@ -8,7 +8,7 @@ public:
         vector<vector<pair<int, int>>>adj(n);
 
         for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++){
+            for (int j = i+1; j < n; j++){
                 int x1 = points[i][0];
                 int x2 = points[j][0];
                 int y1 = points[i][1];
