@@ -12,8 +12,8 @@ public:
             if (s[i] == temp.back()) temp += s[i];
             else {
                 v.push_back({temp.back(), temp.size()});
-                temp = "";
-                temp = s[i];
+                temp.clear();
+                temp += s[i];
             }
         }
         if (temp.size() > 0) v.push_back({temp.back(), temp.size()});
