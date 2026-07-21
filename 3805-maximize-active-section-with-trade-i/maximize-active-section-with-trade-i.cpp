@@ -3,20 +3,20 @@ public:
     int maxActiveSectionsAfterTrade(string s) {
         int n = s.size();
         vector<pair<char, int>>v;
-        string temp = "";
-        temp += s[0];
+        char prev = s[0];
+        int tempSize = 1;
         int maxi = 0;
         int active = 0;
 
         for (int i = 1; i < n; i++){
-            if (s[i] == temp.back()) temp += s[i];
+            if (s[i] == prev) tempSize++;
             else {
-                v.push_back({temp.back(), temp.size()});
-                temp.clear();
-                temp += s[i];
+                v.push_back({prev, tempSize});
+                prev = s[i];
+                tempSize = 1;
             }
         }
-        if (temp.size() > 0) v.push_back({temp.back(), temp.size()});
+        if (tempSize) v.push_back({prev, tempSize});
 
         for (int i = 0; i < v.size(); i++){
             if (v[i].first == '1'){
