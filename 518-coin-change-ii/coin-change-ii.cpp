@@ -1,26 +1,20 @@
 class Solution {
 public:
-    int cnt = 0;
-    int helper(int i, int target, vector<int>& coins, vector<vector<int>>& dp){
-        if (target == 0) {
-            cnt++;
-            return 1;
-        }
+    int dp[301][5001];
+    int helper(int i, int target, vector<int>& coins){
+        if (target == 0) return 1;
         if (i >= coins.size()) return 0;
         if (dp[i][target] != -1) return dp[i][target];
 
-        int notPick = helper(i+1, target, coins, dp);
-        int pick = 0;
-        if (target - coins[i] >= 0){
-            pick = helper(i, target - coins[i], coins, dp);
+        int take = 0;
+        if (coins[i] <= target){
+            take = helper(i, target-coins[i], coins);
         }
-
-        return dp[i][target] = pick + notPick;
+        int notTake = helper(i+1, target, coins);
+        return dp[i][target] = take + notTake;
     }
     int change(int amount, vector<int>& coins) {
-        int n = coins.size();
-        vector<vector<int>>dp(n, vector<int>(amount+1, -1));
-
-        return helper(0, amount, coins, dp);
+        memset(dp, -1, sizeof(dp));
+        return helper(0, amount, coins);
     }
 };
