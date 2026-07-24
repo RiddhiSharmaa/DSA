@@ -4,8 +4,9 @@ public:
     bool helper(int i, string& s, unordered_set<string>&st){
         if (i >= s.size()) return true;
         if (dp[i] != -1) return dp[i];
+        string str = "";
         for (int k = i; k < s.size(); k++){
-            string str = s.substr(i, k-i+1);
+            str += s[k];
             if (st.find(str) != st.end()){
                 if (helper(k+1, s, st)) return dp[i] = true;
             }
