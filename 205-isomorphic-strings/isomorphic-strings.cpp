@@ -1,18 +1,21 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        unordered_map<char, char>mpp, mpp2;
+        int mpp1[256];
+        int mpp2[256];
+        memset(mpp1, -1, sizeof(mpp1));
+        memset(mpp2, -1, sizeof(mpp2));
 
         for (int i = 0; i < s.size(); i++){
             char c = s[i];
             char d = t[i];
-            if (mpp.find(c) == mpp.end()){
-                mpp[c] = d;
+            if (mpp1[c] == -1){
+                mpp1[c] = d;
             }
-            if (mpp2.find(d) == mpp2.end()){
+            if (mpp2[d] == -1){
                 mpp2[d] = c;
             }
-            if (mpp2[d] != c || d != mpp[c]) return false;
+            if (mpp2[d] != c || mpp1[c] != d) return false;
         }
 
         return true;
