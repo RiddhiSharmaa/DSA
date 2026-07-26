@@ -1,26 +1,21 @@
 class StockSpanner {
 public:
-    unordered_map<int, int>mpp;
-    vector<int>v;
+    stack<pair<int, int>>st;
     StockSpanner() {
         
     }
     
     int next(int price) {
-        if (mpp.size() == 0){
-            mpp[price] = 1;
-            v.push_back(price);
-            return 1;
+        int span = 1;
+
+        while (!st.empty() && st.top().first <= price){
+            span += st.top().second;
+            st.pop();
         }
-        int i = v.size()-1;
-        int cnt = 1;
-        while (i >= 0 && v[i] <= price){
-            cnt++;
-            i--;
-        }
-        mpp[price] = cnt;
-        v.push_back(price);
-        return mpp[price];
+
+        st.push({price, span});
+        
+        return span;
     }
 };
 
