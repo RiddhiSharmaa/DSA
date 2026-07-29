@@ -3,14 +3,15 @@ public:
     int orangesRotting(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        queue<pair<int, int>>q;
-        vector<vector<int>>timeArr(n, vector<int>(m, 1e9));
+        int fresh = 0;
+        queue<pair<int, pair<int, int>>>q;
         
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
                 if (grid[i][j] == 2) {
-                    q.push({i, j});
-                    timeArr[i][j] = 0;
+                    q.push({0, {i, j}});
+                } else if (grid[i][j] == 1) {
+                    fresh++;
                 }
             }
         }
@@ -19,31 +20,24 @@ public:
         int col[4] = {0, 1, 0, -1};
         int minTime = 0;
         while (!q.empty()){
-            int x = q.front().first;
-            int y = q.front().second;
+            int t = q.front().first;
+            int x = q.front().second.first;
+            int y = q.front().second.second;
             q.pop();
 
-            grid[x][y] = 2;
+            minTime = max(minTime, t);
 
             for (int i = 0; i < 4; i++){
                 int r = x + row[i];
                 int c = y + col[i];
-                if (r >= 0 && r < n && c >= 0 && c < m && grid[r][c] == 1 && 
-                timeArr[r][c] > timeArr[x][y]+1){
-                    timeArr[r][c] = timeArr[x][y]+1;
-                    q.push({r, c});
+                if (r >= 0 && r < n && c >= 0 && c < m && grid[r][c] == 1){
+                    q.push({t+1, {r, c}});
+                    grid[r][c] = 2;
+                    fresh--;
                 }
             }
         }
 
-
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                if (grid[i][j] == 1) return -1;
-                else if (grid[i][j] == 2) minTime = max(minTime, timeArr[i][j]);
-            }
-        }
-
-        return minTime;
+        return (fresh == 0) ? minTime : -1;
     }
 };
