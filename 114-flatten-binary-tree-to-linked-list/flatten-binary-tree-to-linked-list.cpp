@@ -11,26 +11,18 @@
  */
 class Solution {
 public:
-    void build(TreeNode* root, vector<TreeNode*>& pre){
-        if (!root) return;
-        pre.push_back(root);
-        build(root -> left, pre);
-        build(root -> right, pre);
-    }
-    void buildTree(vector<TreeNode*>& pre){
-        for (int i = 0; i < pre.size()-1; i++){
-            TreeNode* node = pre[i];
-            node -> right = pre[i+1];
-            node -> left = nullptr;
-        }
-        pre[pre.size()-1] -> left = nullptr;
-        pre[pre.size()-1] -> right = nullptr;
-    }
     void flatten(TreeNode* root) {
-        if (!root) return;
-        vector<TreeNode*>pre;
-        build(root, pre);
-        buildTree(pre);
-        return;
+        while (root){
+            if (root -> left){
+                TreeNode* temp = root -> left;
+                while (temp -> right){
+                    temp = temp -> right;
+                }
+                temp -> right = root -> right;
+                root -> right = root -> left;
+                root -> left = nullptr;
+            }
+            root = root -> right;
+        }
     }
 };
