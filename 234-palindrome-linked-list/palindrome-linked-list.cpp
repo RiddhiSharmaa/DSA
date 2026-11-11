@@ -11,14 +11,14 @@
 class Solution {
 public:
     ListNode* reverse(ListNode* head){
+        ListNode* temp = head;
         ListNode* prev = nullptr;
-        ListNode* curr = head;
 
-        while (curr){
-            ListNode* nextNode = curr -> next;
-            curr -> next = prev;
-            prev = curr;
-            curr = nextNode;
+        while (temp){
+            ListNode* curr = temp -> next;
+            temp -> next = prev;
+            prev = temp;
+            temp = curr;
         }
 
         return prev;
@@ -31,15 +31,14 @@ public:
             slow = slow -> next;
             fast = fast -> next -> next;
         }
-
-        ListNode* revNode = reverse(slow);
-
+        
+        ListNode* temp = reverse(slow);
         fast = head;
 
-        while (revNode){
-            if (fast -> val != revNode -> val) return false;
+        while (temp){
+            if (fast -> val != temp -> val) return false;
+            temp = temp -> next;
             fast = fast -> next;
-            revNode = revNode -> next;
         }
 
         return true;
