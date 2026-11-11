@@ -10,14 +10,15 @@ public:
         return sum;
     }
     bool isHappy(int n) {
-        unordered_set<int>st;
+        int slow = getNextNum(n);
+        int fast = getNextNum(getNextNum(n));
 
-        while (st.find(n) == st.end()){
-            st.insert(n);
-            if (n == 1) return true;
-            n = getNextNum(n);
+        while (slow != fast){
+            if (fast == 1) return true;
+            slow = getNextNum(slow);
+            fast = getNextNum(getNextNum(fast));
         }
 
-        return false;
+        return (slow == 1);
     }
 };
